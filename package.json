@@ -27,7 +27,12 @@
   "homepage": "https://github.com/HE-Arc/presentation-react#readme",
   "dependencies": {
     "babel-standalone": "^6.21.1-0",
+    "bootstrap-sass": "^3.3.7",
     "react": "^15.4.1",
     "react-dom": "^15.4.1"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-sass": "^3.0.0"
   }
 }
