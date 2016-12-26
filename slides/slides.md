@@ -16,7 +16,7 @@ date: 2016, Haute École Arc Ingénierie, Neuchâtel
 <aside class="notes">
     On a demandé à Donald ce qu'était React.
     Il nous a dit qu'il savait pas.
-    Et vous? Qui Connais? C'est quoi?
+    Et vous? Qui Connait? C'est quoi?
 </aside>
 
 ---
@@ -27,20 +27,28 @@ date: 2016, Haute École Arc Ingénierie, Neuchâtel
 
 * Bibliothèque Javascript pour créer des interfaces web.
 * Développé par Jordan Walke chez Facebook en 2011 (opensourcé en 2013).
-* Inspiré d'[XHP](https://facebook.github.io/xhp-lib/).
+* Inspiré d'[XHP](https://facebook.github.io/xhp-lib/) et
+    [E4X](https://en.wikipedia.org/wiki/ECMAScript_for_XML).
 * Utilisé par Facebook, Netflix, Imgur, Feedly et bien d'autres.
 
 <aside class="notes">
     - Aussi appelé React.js ou ReactJS.
     - Souvent utilisé dans le V de MVC.
     - ATTENTION, pas de CSS avec! C'est
-        uniquement pour la partie HTML de l'UI.
-    - Principe de composant un peu à la Qt (Component based
-        architecture).
-    - Mise à jour des informations dans le UI lorsque
-        des informations changent (Data binding).
+      uniquement pour la partie HTML de l'UI.
+    - Principe de composant un peu à la Qt
+      (Component based architecture).
+    - Mise à jour des informations dans le UI
+      lorsque des informations changent
+      (Data binding).
     - XHP: Framework permettant de mettre de
-        l'HTML dans des scripts PHP plus facilement.
+      l'HTML dans des scripts PHP plus
+      facilement.
+    - E4X: ECMAScript for XML. JavaScript avec
+      une extension permettant de placer
+      directement de l'XML dans des fichiers
+      JS pour faciliter la manipulation de la
+      page. (alternative à DOM)
     - Facebook: utilisé pour le feed des actualités.
 </aside>
 
@@ -52,9 +60,9 @@ date: 2016, Haute École Arc Ingénierie, Neuchâtel
 * [ES2015](https://babeljs.io/learn-es2015/)
 
 <aside class="notes">
-    - Peu de compétences nécessaires
+    - Peu de compétences nécessaires.
     - Compétences plutôt simples à acquérir. La
-        qualité du code viendra avec l'expérience.
+      qualité du code viendra avec l'expérience.
 </aside>
 
 ---
@@ -69,33 +77,34 @@ date: 2016, Haute École Arc Ingénierie, Neuchâtel
 <aside class="notes">
     - JSX: JavaScript eXtension syntax
     - HTML dans du JS sans utilisation des guillemets
-        ou des backticks.
+      ou des backticks.
     - Principe de composant un peu à la Qt
     - Permet de créer des composants réutilisables
     - DOM: Document Object Model
     - Data binding
-    - Arhitecture: on définit un tag HTML
-        correspondant à notre composant et il
-        se monte dessus tout seul.
+    - Architecture: on définit un tag XML
+      correspondant à notre composant et il
+      se monte dessus tout seul.
     - React Native: proposer l'architecture de React
-        pour des application iOS et Android.
+      pour des application iOS et Android.
 </aside>
 
 ---
 
-## React Component: notion de component
+## React Component
 
 * Cas d'exemple de l'utilisation d'un component? (imbriquation)
-* Génère une sortie à chaque appel.
+* Génère une sortie à chaque appel. (méthode __`render()`__)
 * A son propre Virtual DOM.
 * Contient des `React Elements` (`<div>`, `<p>`, ...).
-* Est stateful contrairement aux `React Elements` qui sont stateless.
+* Est __stateful__ contrairement aux `React Elements` qui sont __stateless__.
 
 <aside class="notes">
     - Par sortie, on veux dire de l'HTML
     - Virtual DOM:
         1) Représentation en mémoire (VDOM)
         2) Rendu dans le navigateur
+
     Permet d'accélerer le rendu si on utilise
     plusieurs fois le component. On ne charge
     que ce qui a changé. -> Gain de performances.
@@ -128,11 +137,11 @@ ReactDOM.render(
 
 <aside class="notes">
     - Classe simple héritant de React.Component.
-        (toujours ainsi!)
+      (toujours ainsi!)
     - Deux arguments dans render:
         * Quel composant appeler.
-        * Quel tag HTML est remplacé par ce
-            composant.
+        * Quel élément HTML est remplacé par ce
+          composant.
 </aside>
 
 ---
@@ -163,19 +172,19 @@ Voir [ici](https://facebook.github.io/react/docs/installation.html).
 
 <aside class="notes">
     - Le div peut être appelé un "target container".
-        C'est l'endroit où sera contenu le component.
+      C'est l'endroit où sera contenu le component.
     - Installation:
         - Utiliser WebPack ou Browserify car "require"
-            n'est pas connu par le navigateur.
+          n'est pas connu par le navigateur.
     - Babel permet de garantir que le navigateur
-        comprendra le code ES6 et le JSX.
+      comprendra le code ES6 et le JSX.
 </aside>
 
 ---
 
 ## Hello World
 
-Expliquer qu'est-ce qui se passe quand:
+Expliquer ce qui se passe quand:
 
 1. Chargement des scripts de dépendances.
 2. Chargement du component.
@@ -183,15 +192,56 @@ Expliquer qu'est-ce qui se passe quand:
 4. Virtual DOM.
 5. `render()`.
 
-Un petit schéma explicatif? 
+Un petit schéma explicatif?
+
+---
+
+## Subtilités
+
+Expliquer pourquoi on utilise `className` et `htmlFor` au lieu
+de `class` et `for` pour l'écriture d'élément HTML dans JSX.
+(mots réservés, tout çà tout çà)
+
+---
+
+## State (état)
+
+Qu'est-ce qu'un état? Que peut-on y mettre? À quoi ça sert?
+
+---
+
+## Props (propriétés)
+
+Qu'est-ce qu'une propriété? Comment en créer et leur donner des valeurs? À quoi
+ça sert?
+
+---
+
+## Gestion des évènements
+
+Expliquer pourquoi `onclick="this.doSomething()"` ne fonctionne pas dans React.
+(problème de `this`). Expliquer comment le régler. Proposer plusieurs
+solutions?
+
+---
+
+## Imbriquation de components
+
+Exemple montrant comment imbriquer des composants. Expliquer comment gérer la
+relation component parent - component(s) enfant.
 
 ---
 
 ## Exercices
 
+* Formulaire simple avec un titre changeant dynamiquement.
+* Kanban sans drag'n drop.
+
 ---
 
 ## Résumé
+
+Résumer les caractéristiques et avantages principaux de React.
 
 ---
 
@@ -206,3 +256,4 @@ Un petit schéma explicatif?
 * [Cours __Powering Up With React__ de Code School](https://www.codeschool.com/courses/powering-up-with-react)
 * [JSX](https://jsx.github.io/)
 * [The difference between the Virtual DOM and DOM](http://reactkungfu.com/2015/10/the-difference-between-virtual-dom-and-dom/)
+* [Getting Started with React and JSX](https://www.sitepoint.com/getting-started-react-jsx/)
