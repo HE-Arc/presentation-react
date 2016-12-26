@@ -11,6 +11,10 @@ html: $(SLIDES)
 .PHONY: pdf
 pdf: $(PDFS)
 
+.PHONY: install
+install:
+	git clone https://github.com/hakimel/reveal.js.git
+
 $(SLIDES): %.html: %.md
 	pandoc -s -S -t revealjs slides.md -o slides.html \
 		--self-contained \

@@ -183,7 +183,7 @@ Expliquer qu'est-ce qui se passe quand:
 4. Virtual DOM.
 5. `render()`.
 
-Un petit schéma explicatif?
+Un petit schéma explicatif? 
 
 ---
 
