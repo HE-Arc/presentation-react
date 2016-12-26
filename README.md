@@ -1,3 +1,3 @@
 # slides-react
 
-Presentation slides, examples and exercices about [Facebook's React library](https://facebook.github.io/react/).
+Slides de présentation, exemples et exercices à propos de la bilbiothèque JavaScript [React](https://facebook.github.io/react/) de Facebook. 
