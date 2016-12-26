@@ -236,6 +236,8 @@ relation component parent - component(s) enfant.
 
 * Formulaire simple avec un titre changeant dynamiquement.
 * Kanban sans drag'n drop.
+* T'es un champion? Fais le kanban avec le drag'n drop! Voici un [tutoriel](https://www.html5rocks.com/en/tutorials/dnd/basics/)
+  expliquant comment utiliser l'[API Drag and drop de HTML5](https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API).
 
 ---
 
