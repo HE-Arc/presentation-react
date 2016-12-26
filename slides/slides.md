@@ -91,6 +91,27 @@ date: 2016, Haute École Arc Ingénierie, Neuchâtel
 
 ---
 
+## Installation
+
+Procédure assez simple:
+
+```console
+$ npm install react react-dom babel-standalone
+```
+
+On inclue `react.js`, `react-dom.js` et `babel.js` ou leurs versions
+minifiées dans nos fichiers HTML et en voiture Simone!
+
+<aside class="notes">
+    - react: la majeur partie de React.
+    - react-dom: partie de React permettant
+      d'utiliser Virtual DOM.
+    - babel: ibliothèque permettant d'exécuter
+      du code ES2015 côté navigateur ou autre
+      environnement "non-nodeJS".
+</aside>
+---
+
 ## React Component
 
 * Cas d'exemple de l'utilisation d'un component? (imbriquation)
@@ -117,7 +138,7 @@ date: 2016, Haute École Arc Ingénierie, Neuchâtel
 
 Dans notre fichier `my-component.jsx`:
 
-```
+```xml
 class MyComponent extends React.Component {
     render() {
         return (
@@ -132,7 +153,6 @@ class MyComponent extends React.Component {
 ReactDOM.render(
     <MyComponent />, document.getElementById('my-component')
 );
-
 ```
 
 <aside class="notes">
@@ -159,16 +179,13 @@ Dans notre fichier `index.html`:
     </head>
     <body>
         <div id="my-component"></div>
-        <script src="vendors/react.js"></script>
-        <script src="vendors/react-dom.js"></script>
-        <script src="vendors/babel.js"></script>
-        <script type="text/babel" src="js/my-component.jsx"> </script>
+        <script src="node_modules/react/dist/react.js"></script>
+        <script src="node_modules/react-dom/dist/react-dom.js"></script>
+        <script src="node_modules/babel-standalone/babel.js"></script>
+        <script type="text/babel" src="my-component.jsx"></script>
     </body>
 </html>
 ```
-
-Exemple à paufiner car l'installation de React reste obscure.
-Voir [ici](https://facebook.github.io/react/docs/installation.html).
 
 <aside class="notes">
     - Le div peut être appelé un "target container".
@@ -178,6 +195,9 @@ Voir [ici](https://facebook.github.io/react/docs/installation.html).
           n'est pas connu par le navigateur.
     - Babel permet de garantir que le navigateur
       comprendra le code ES6 et le JSX.
+    - Lors de l'inclusion de nos fichiers jsx, on précise qu'il s'agit
+      de code ES2015 avec l'attribut type de manière à charger le fichier
+      avec Babel.
 </aside>
 
 ---
@@ -196,11 +216,107 @@ Un petit schéma explicatif?
 
 ---
 
+## Templating
+
+```xml
+class MyComponent extends React.Component {
+    render() {
+        const superAnimals = [
+            'octocat',
+            'fuzzybadger',
+            'fictionnal rat'
+        ];
+        return (
+            <div>
+                <h1>Howdie!</h1>
+                <p>Here are your animals</p>
+                <ul>
+                    {superAnimals.map( animal => <li>{animal}</li> )}
+                </ul>
+            </div>
+        );
+    }
+}
+```
+
+On utilise les accolades __{}__ pour faire du templating avec JavaScript.
+
+---
+
 ## Subtilités
 
-Expliquer pourquoi on utilise `className` et `htmlFor` au lieu
-de `class` et `for` pour l'écriture d'élément HTML dans JSX.
-(mots réservés, tout çà tout çà)
+![](http://ljdchost.com/UZ3egO9.gif)
+
+---
+
+## Subtilités: attributs HTML
+
+`my-component.jsx` donnant des erreurs:
+
+```xml
+class MyComponent extends React.Component {
+    render() {
+        return (
+            <div class="form-component">
+                <h1>Hello world</h1>
+                <p>Hello! It's me! Your first component!</p>
+                <form>
+                    <label for="message">Message : <label>
+                    <input id="message" name="message" value="">
+                </form>
+            </div>
+        );
+    }
+}
+
+ReactDOM.render(
+    <MyComponent />, document.getElementById('my-component')
+);
+```
+
+---
+
+## Subtitlités: attributs HTML
+
+__`class`__ et __`for`__ sont des mots réservés en `JavaScript`. Il faut
+utiliser __`className`__ et __`htmlFor`__ pour palier à ce problème. `React`
+s'occupe de faire la transformation pour nous.
+
+---
+
+## Subtilités: attributs HTML
+
+`my-component.jsx` corrigé:
+
+```xml
+class MyComponent extends React.Component {
+    render() {
+        return (
+            <div className="form-component">
+                <h1>Hello world</h1>
+                <p>Hello! It's me! Your first component!</p>
+                <form>
+                    <label htmlFor="message">Message : <label>
+                    <input id="message" name="message" value="">
+                </form>
+            </div>
+        );
+    }
+}
+
+ReactDOM.render(
+    <MyComponent />, document.getElementById('my-component')
+);
+```
+
+---
+
+
+## Subtilités: gestion des évènements
+
+Expliquer pourquoi `onclick="this.doSomething()"` ne fonctionne pas dans React.
+(problème de `this`). Expliquer comment le régler. Proposer plusieurs
+solutions?
 
 ---
 
@@ -214,14 +330,6 @@ Qu'est-ce qu'un état? Que peut-on y mettre? À quoi ça sert?
 
 Qu'est-ce qu'une propriété? Comment en créer et leur donner des valeurs? À quoi
 ça sert?
-
----
-
-## Gestion des évènements
-
-Expliquer pourquoi `onclick="this.doSomething()"` ne fonctionne pas dans React.
-(problème de `this`). Expliquer comment le régler. Proposer plusieurs
-solutions?
 
 ---
 
@@ -259,3 +367,4 @@ Résumer les caractéristiques et avantages principaux de React.
 * [JSX](https://jsx.github.io/)
 * [The difference between the Virtual DOM and DOM](http://reactkungfu.com/2015/10/the-difference-between-virtual-dom-and-dom/)
 * [Getting Started with React and JSX](https://www.sitepoint.com/getting-started-react-jsx/)
+* [Babel](https://babeljs.io/)
