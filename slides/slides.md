@@ -253,7 +253,7 @@ On utilise les accolades __{}__ pour faire du templating avec JavaScript.
 
 ## Subtilités: attributs HTML
 
-`my-component.jsx` donnant des erreurs:
+`my-component.jsx` donnant des erreurs <i class="material-icons danger">error</i>
 
 ```xml
 class MyComponent extends React.Component {
@@ -288,7 +288,7 @@ s'occupe de faire la transformation pour nous.
 
 ## Subtilités: attributs HTML
 
-`my-component.jsx` corrigé:
+`my-component.jsx` corrigé <i class="material-icons success">done</i>
 
 ```xml
 class MyComponent extends React.Component {

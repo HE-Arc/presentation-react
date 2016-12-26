@@ -17,6 +17,8 @@ install:
 
 $(SLIDES): %.html: %.md
 	pandoc -s -S -t revealjs slides.md -o slides.html \
+		--css https://fonts.googleapis.com/icon?family=Material+Icons \
+		-H theme.html \
 		--self-contained \
 		--variable theme="beige" \
 		--variable transition="convex" \
