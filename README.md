@@ -2,6 +2,10 @@
 
 Slides de présentation, exemples et exercices à propos de la bilbiothèque JavaScript [React](https://facebook.github.io/react/) de Facebook.
 
+## Tester les exemples
+
+Il est nécessaire d'installer quelques dépendances pour faire fonctionner les exemples. Il faut installer les packages JavaScript `react`, `react-dom` et `babel-standalone`. Il suffit de lancer la commande `npm install` à la racine du projet pour les installer.
+
 ## Installation des outils pour l'édition des slides
 
 1. Si vous êtes sous Windows (mouahaha!), installez [MinGW](http://www.mingw.org/) et ajoutez le dans votre PATH. MinGW permet d'utiliser la commande `mingw32-make` qui permet de travailler avec des Makefile à la Linux.
