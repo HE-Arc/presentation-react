@@ -16,7 +16,7 @@ date: 2016, Haute École Arc Ingénierie, Neuchâtel
 <aside class="notes">
     On a demandé à Donald ce qu'était React.
     Il nous a dit qu'il savait pas.
-    Et vous? Qui Connait? C'est quoi?
+    Et vous? Qui connaît? C'est quoi?
 </aside>
 
 ---
@@ -106,7 +106,7 @@ minifiées dans nos fichiers HTML et en voiture Simone!
     - react: la majeur partie de React.
     - react-dom: partie de React permettant
       d'utiliser Virtual DOM.
-    - babel: ibliothèque permettant d'exécuter
+    - babel: bibliothèque permettant d'exécuter
       du code ES2015 côté navigateur ou autre
       environnement "non-nodeJS".
 </aside>
@@ -114,7 +114,7 @@ minifiées dans nos fichiers HTML et en voiture Simone!
 
 ## React Component
 
-* Cas d'exemple de l'utilisation d'un component? (imbriquation)
+* Cas d'exemple de l'utilisation d'un component? (imbrication)
 * Génère une sortie à chaque appel. (méthode __`render()`__)
 * A son propre Virtual DOM.
 * Contient des `React Elements` (`<div>`, `<p>`, ...).
@@ -126,7 +126,7 @@ minifiées dans nos fichiers HTML et en voiture Simone!
         1) Représentation en mémoire (VDOM)
         2) Rendu dans le navigateur
 
-    Permet d'accélerer le rendu si on utilise
+    Permet d'accélérer le rendu si on utilise
     plusieurs fois le component. On ne charge
     que ce qui a changé. -> Gain de performances.
     Plus d'explications ici: http://reactkungfu.com/2015/10/the-difference-between-virtual-dom-and-dom/
@@ -194,10 +194,12 @@ Dans notre fichier `index.html`:
         - Utiliser WebPack ou Browserify car "require"
           n'est pas connu par le navigateur.
     - Babel permet de garantir que le navigateur
-      comprendra le code ES6 et le JSX.
-    - Lors de l'inclusion de nos fichiers jsx, on précise qu'il s'agit
-      de code ES2015 avec l'attribut type de manière à charger le fichier
-      avec Babel.
+      comprendra le code ES6 et le JSX. Solution
+      plus simple.
+    - Lors de l'inclusion de nos fichiers jsx, on
+      précise qu'il s'agit de code ES2015 avec
+      l'attribut type de manière à charger le
+      fichier avec Babel.
 </aside>
 
 ---
@@ -276,7 +278,7 @@ ReactDOM.render(
 
 ---
 
-## Subtitlités: attributs HTML
+## Subtilités: attributs HTML
 
 __`class`__ et __`for`__ sont des mots réservés en `JavaScript`. Il faut
 utiliser __`className`__ et __`htmlFor`__ pour palier à ce problème. `React`
@@ -333,7 +335,7 @@ Qu'est-ce qu'une propriété? Comment en créer et leur donner des valeurs? À q
 
 ---
 
-## Imbriquation de components
+## Imbrication de components
 
 Exemple montrant comment imbriquer des composants. Expliquer comment gérer la
 relation component parent - component(s) enfant.
