@@ -231,7 +231,7 @@ class MyComponent extends React.Component {
         return (
             <div>
                 <h1>Howdie!</h1>
-                <p>Here are your animals</p>
+                <p>Here are your animals!</p>
                 <ul>
                     {superAnimals.map( animal => <li>{animal}</li> )}
                 </ul>
@@ -370,3 +370,4 @@ Résumer les caractéristiques et avantages principaux de React.
 * [The difference between the Virtual DOM and DOM](http://reactkungfu.com/2015/10/the-difference-between-virtual-dom-and-dom/)
 * [Getting Started with React and JSX](https://www.sitepoint.com/getting-started-react-jsx/)
 * [Babel](https://babeljs.io/)
+* [Working with Sass, Bootstrap and Gulp](http://david-barreto.com/working-with-sass-bootstrap-and-gulp/git)
