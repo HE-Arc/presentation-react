@@ -29,7 +29,8 @@ date: 2016, Haute École Arc Ingénierie, Neuchâtel
 * Développé par Jordan Walke chez Facebook en 2011 (opensourcé en 2013).
 * Inspiré d'[XHP](https://facebook.github.io/xhp-lib/) et
     [E4X](https://en.wikipedia.org/wiki/ECMAScript_for_XML).
-* Utilisé par Facebook, Netflix, Imgur, Feedly et bien d'autres.
+* Utilisé par Facebook, Netflix, [Imgur](http://imgur.com/),
+  [Feedly](https://feedly.com/) et bien d'autres.
 
 <aside class="notes">
     - Aussi appelé React.js ou ReactJS.
@@ -143,8 +144,8 @@ class MyComponent extends React.Component {
     render() {
         return (
             <div>
-                <h1>Hello world</h1>
-                <p>Hello! It's me! Your first component!</p>
+                <h1>Hello Wolrd</h1>
+                <p>Hello! It's me! Your first component !</p>
             </div>
         );
     }
@@ -152,7 +153,7 @@ class MyComponent extends React.Component {
 
 ReactDOM.render(
     <MyComponent />, document.getElementById('my-component')
-);
+)
 ```
 
 <aside class="notes">
@@ -175,14 +176,15 @@ Dans notre fichier `index.html`:
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Let's play with React!</title>
+        <title>React - Hello World</title>
+        <link rel="stylesheet" href="../../css/app.css">
     </head>
-    <body>
+    <body class="container">
         <div id="my-component"></div>
-        <script src="node_modules/react/dist/react.js"></script>
-        <script src="node_modules/react-dom/dist/react-dom.js"></script>
-        <script src="node_modules/babel-standalone/babel.js"></script>
-        <script type="text/babel" src="my-component.jsx"></script>
+        <script src="../../node_modules/react/dist/react.js"></script>
+        <script src="../../node_modules/react-dom/dist/react-dom.js"></script>
+        <script src="../../node_modules/babel-standalone/babel.js"></script>
+        <script type="text/babel" src="MyComponent.jsx"></script>
     </body>
 </html>
 ```
@@ -221,19 +223,20 @@ Un petit schéma explicatif?
 ## Templating
 
 ```xml
-class MyComponent extends React.Component {
+class AnimalsList extends React.Component {
     render() {
         const superAnimals = [
             'octocat',
             'fuzzybadger',
             'fictionnal rat'
         ];
+        var i = 0;
         return (
             <div>
                 <h1>Howdie!</h1>
                 <p>Here are your animals!</p>
                 <ul>
-                    {superAnimals.map( animal => <li>{animal}</li> )}
+                    {superAnimals.map( animal => <li key={i++}>{animal}</li> )}
                 </ul>
             </div>
         );
@@ -356,7 +359,76 @@ pour la gestion des évènements.
 
 ## State (état)
 
-Qu'est-ce qu'un état? Que peut on y mettre? À quoi ça sert?
+* But: stocker de l'information propre au component.
+* Rendu du component en fonction de son état.
+* Un changement d'état appelle automatiquement la méthode `render()`.
+
+<aside class="notes">
+    - Qu'est-ce qu'un état? Que peut on y mettre?
+      À quoi ça sert?
+    - L'appelle systèmatique de render() permet
+      l'actualisation automatique du component.
+      Pratique pour un fil d'actualité avec des
+      appels AJAX à intervalle régulier.
+      (long polling)
+</aside>
+
+---
+
+## State (état)
+
+```javascript
+class MainComponent extends React.Component {
+    constructor(props) {
+        super(props);
+        this.handleClick = this.handleClick.bind(this);
+        this.state = {
+            displayAnimalList: true,
+        };
+        this.animalsList = <AnimalsList />;
+    }
+    handleClick(e) {
+        if (this.state.displayAnimalList == false) {
+            this.animalsList = <AnimalsList />;
+        }
+        else {
+            this.animalsList = <div></div>;
+        }
+        this.setState({
+            displayAnimalList: !this.state.displayAnimalList
+        });
+    }
+```
+
+---
+
+```xml
+    render() {
+        return (
+            <div>
+                <h1>
+                    Let's play {'with'} states and imbricate
+                    some components!
+                </h1>
+                <p>
+                    Use {'this switch'} button to display
+                    or hide the animals list.
+                </p>
+                <form>
+                    <label className="switch">
+                        <input type="checkbox" defaultChecked />
+                        <div className="slider round"
+                         onClick={this.handleClick}
+                        >
+                        </div>
+                    </label>
+                </form>
+                {this.animalsList}
+            </div>
+        );
+    }
+}
+```
 
 ---
 
