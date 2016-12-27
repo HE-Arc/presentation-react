@@ -313,13 +313,45 @@ ReactDOM.render(
 
 ---
 
-
 ## Subtilités: gestion des évènements
 
-Expliquer pourquoi `onclick="this.doSomething()"` ne fonctionne pas dans React.
-(problème de `this`). Expliquer comment le régler. Proposer plusieurs
-solutions?
+```xml
+class MyComponent extends React.Component {
+    constructor(props) {
+        super(props);
+        this.handleClick = this.handleClick.bind(this);
+    }
 
+    handleClick(e) {
+        alert('You toggled me! How kind you are!');
+    }
+
+    render() {
+        return (
+            <div>
+                <h1>Event Handling</h1>
+                <p>Enjoy that toggle button!</p>
+                    <label className="switch">
+                        <input type="checkbox"></input>
+                        <div className="slider round"
+                            onClick={this.handleClick}
+                        >
+                        </div>
+                    </label>
+            </div>
+        );
+    }
+}
+```
+
+Il existe d'[autres solutions](https://facebook.github.io/react/docs/handling-events.html)
+pour la gestion des évènements.
+
+<aside class="notes">
+    Expliquer pourquoi onclick="this.handleClick()"
+    ne fonctionne pas dans React.
+    -> This est propblèmatique dans ce contexte.
+</aside>
 ---
 
 ## State (état)
