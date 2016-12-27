@@ -350,13 +350,13 @@ pour la gestion des évènements.
 <aside class="notes">
     Expliquer pourquoi onclick="this.handleClick()"
     ne fonctionne pas dans React.
-    -> This est propblèmatique dans ce contexte.
+    -> This est problématique dans ce contexte.
 </aside>
 ---
 
 ## State (état)
 
-Qu'est-ce qu'un état? Que peut-on y mettre? À quoi ça sert?
+Qu'est-ce qu'un état? Que peut on y mettre? À quoi ça sert?
 
 ---
 
@@ -383,9 +383,25 @@ relation component parent - component(s) enfant.
 
 ---
 
-## Résumé
+## Inconvénients
 
-Résumer les caractéristiques et avantages principaux de React.
+* Si on désactive JavaScript, plus rien ne s'affiche.
+
+---
+
+## Avantages
+
+* Composants d'interfaces réutilisables et imbricables.
+* Possibilité de stocker et modifier les informations à l'aide des états.
+* On ne s'embête plus avec DOM et on gagne en performance grâce à Virtual DOM.
+* Transmission d'informations entre components grâce aux propriétés.
+
+<aside class="notes">
+    - Il n'y as pas de notion d'état avec jQuery.
+    - React est-il plus rapide que jQuery?
+      Probablement parce qu'il ne reparcourt pas
+      tout le DOM à chaque modification.
+</aside>
 
 ---
 
