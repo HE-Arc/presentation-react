@@ -67,12 +67,14 @@ date: 2016, Haute École Arc Ingénierie, Neuchâtel
 
 ---
 
-## Fonctionnalités importantes
+## Fonctionnalités principales
 
 * [JSX](https://facebook.github.io/react/docs/jsx-in-depth.html)
 * [Virtual DOM](http://reactkungfu.com/2015/10/the-difference-between-virtual-dom-and-dom/)
 * Architecture au-dessus d'HTML
 * React Native (annoncé en 2015)
+* [React Developer Tools](https://github.com/facebook/react-devtools)
+  disponibles pour les navigateurs ou en standalone.
 
 <aside class="notes">
     - JSX: JavaScript eXtension syntax
