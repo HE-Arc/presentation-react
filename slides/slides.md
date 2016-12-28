@@ -11,7 +11,6 @@ date: 2016, Haute École Arc Ingénierie, Neuchâtel
 ---
 
 ![](https://media.giphy.com/media/l41YBu8vgBGUHmGGI/giphy.gif){ width=600px }
-<!-- ![](http://www.reactiongifs.com/r/gc.gif) -->
 
 <aside class="notes">
     On a demandé à Donald ce qu'était React.

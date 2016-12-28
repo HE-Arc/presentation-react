@@ -5,13 +5,12 @@ class AnimalsList extends React.Component {
             'fuzzybadger',
             'fictionnal rat'
         ];
-        var i = 0;
         return (
             <div>
                 <h1>Howdie!</h1>
                 <p>Here are your animals!</p>
                 <ul>
-                    {superAnimals.map( animal => <li key={i++}>{animal}</li> )}
+                    {superAnimals.map((animal, index) => <li key={index}>{animal}</li> )}
                 </ul>
             </div>
         );

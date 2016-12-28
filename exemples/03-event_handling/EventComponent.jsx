@@ -4,7 +4,8 @@ class MyComponent extends React.Component {
         this.handleClick = this.handleClick.bind(this);
     }
     handleClick(e) {
-        alert('You toggled me! How kind you are!');
+        var out = document.getElementById('event-output');
+        out.innerHTML = out.innerHTML + 'You toggled me! How kind you are!<br />';
     }
     render() {
         return (
@@ -15,6 +16,7 @@ class MyComponent extends React.Component {
                         <input type="checkbox"></input>
                         <div className="slider round" onClick={this.handleClick}></div>
                     </label>
+                    <p id="event-output"></p>
             </div>
         );
     }
