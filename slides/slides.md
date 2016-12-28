@@ -221,7 +221,7 @@ Un petit schéma explicatif?
 
 ## Templating
 
-```xml
+```js
 class AnimalsList extends React.Component {
     render() {
         const superAnimals = [
@@ -229,13 +229,12 @@ class AnimalsList extends React.Component {
             'fuzzybadger',
             'fictionnal rat'
         ];
-        var i = 0;
         return (
             <div>
                 <h1>Howdie!</h1>
                 <p>Here are your animals!</p>
                 <ul>
-                    {superAnimals.map( animal => <li key={i++}>{animal}</li> )}
+                    {superAnimals.map((animal, index) => <li key={index}>{animal}</li> )}
                 </ul>
             </div>
         );
@@ -360,7 +359,7 @@ pour la gestion des évènements.
 
 * But: stocker de l'information propre au component.
 * Rendu du component en fonction de son état.
-* Un changement d'état appelle automatiquement la méthode `render()`.
+* _Un changement d'état appelle automatiquement la méthode `render()`._
 
 <aside class="notes">
     - Qu'est-ce qu'un état? Que peut on y mettre?
@@ -401,16 +400,18 @@ class MainComponent extends React.Component {
 
 ---
 
+## State(état)
+
 ```xml
     render() {
         return (
             <div>
                 <h1>
-                    Let's play {'with'} states and imbricate
+                    Play {`with`} states and imbricate
                     some components!
                 </h1>
                 <p>
-                    Use {'this switch'} button to display
+                    Use {`this switch`} button to display
                     or hide the animals list.
                 </p>
                 <form>
@@ -431,17 +432,21 @@ class MainComponent extends React.Component {
 
 ---
 
-## Props (propriétés)
-
-Qu'est-ce qu'une propriété? Comment en créer et leur donner des valeurs? À quoi
-ça sert?
-
----
-
 ## Imbrication de components
 
 Exemple montrant comment imbriquer des composants. Expliquer comment gérer la
 relation component parent - component(s) enfant.
+
+---
+
+## Props (propriétés)
+
+* Passage de valeurs entre component parent et component(s) enfant(s)
+
+<aside class="notes">
+    Qu'est-ce qu'une propriété? Comment en créer
+    et leur donner des valeurs? À quoi ça sert?
+</aside>
 
 ---
 
@@ -462,7 +467,7 @@ relation component parent - component(s) enfant.
 
 ## Avantages
 
-* Composants d'interfaces réutilisables et imbricables.
+* Composants d'interface réutilisables et imbricables.
 * Possibilité de stocker et modifier les informations à l'aide des états.
 * On ne s'embête plus avec DOM et on gagne en performance grâce à Virtual DOM.
 * Transmission d'informations entre components grâce aux propriétés.
@@ -477,6 +482,8 @@ relation component parent - component(s) enfant.
 ---
 
 ## Questions ?
+
+![](https://media.giphy.com/media/dXICCcws9oxxK/giphy.gif)
 
 ---
 
