@@ -1,7 +1,13 @@
----
-title: Réaliser des interfaces web avec React
-author: Bastien Burri, Julien M'Poy & Axel Roy
-date: 2016, Haute École Arc Ingénierie, Neuchâtel
+# React
+
+Une bibliothèque pour réaliser des interfaces web
+
+Bastien Burri, Julien M'Poy & Axel Roy
+
+2016, Haute École Arc Ingénierie, Neuchâtel
+
+[https://github.com/HE-Arc/presentation-react](https://github.com/HE-Arc/presentation-react)
+
 ---
 
 ## Sommaire
@@ -10,7 +16,7 @@ date: 2016, Haute École Arc Ingénierie, Neuchâtel
 
 ---
 
-![](https://media.giphy.com/media/l41YBu8vgBGUHmGGI/giphy.gif){ width=600px }
+![](https://media.giphy.com/media/l41YBu8vgBGUHmGGI/giphy.gif){ width=900px }
 
 <aside class="notes">
     On a demandé à Donald ce qu'était React.
@@ -72,7 +78,7 @@ date: 2016, Haute École Arc Ingénierie, Neuchâtel
 * [JSX](https://facebook.github.io/react/docs/jsx-in-depth.html)
 * [Virtual DOM](http://reactkungfu.com/2015/10/the-difference-between-virtual-dom-and-dom/)
 * Architecture au-dessus d'HTML
-* React Native (annoncé en 2015)
+* React Native
 * [React Developer Tools](https://github.com/facebook/react-devtools)
   disponibles pour les navigateurs ou en standalone.
 
@@ -91,27 +97,6 @@ date: 2016, Haute École Arc Ingénierie, Neuchâtel
       pour des application iOS et Android.
 </aside>
 
----
-
-## Installation
-
-Procédure assez simple:
-
-```console
-$ npm install react react-dom babel-standalone
-```
-
-On inclue `react.js`, `react-dom.js` et `babel.js` ou leurs versions
-minifiées dans nos fichiers HTML et en voiture Simone!
-
-<aside class="notes">
-    - react: la majeur partie de React.
-    - react-dom: partie de React permettant
-      d'utiliser Virtual DOM.
-    - babel: bibliothèque permettant d'exécuter
-      du code ES2015 côté navigateur ou autre
-      environnement "non-nodeJS".
-</aside>
 ---
 
 ## React Component
@@ -248,13 +233,13 @@ On utilise les accolades __{}__ pour faire du templating avec JavaScript.
 
 ---
 
-## Subtilités
+## Surprises et subtilités
 
-![](http://ljdchost.com/UZ3egO9.gif)
+![](http://ljdchost.com/UZ3egO9.gif){ width=900px }
 
 ---
 
-## Subtilités: attributs HTML
+## Surprises et subtilités: attributs HTML
 
 `my-component.jsx` donnant des erreurs <i class="material-icons danger">error</i>
 
@@ -281,7 +266,7 @@ ReactDOM.render(
 
 ---
 
-## Subtilités: attributs HTML
+## Surprises et subtilités: attributs HTML
 
 __`class`__ et __`for`__ sont des mots réservés en `JavaScript`. Il faut
 utiliser __`className`__ et __`htmlFor`__ pour palier à ce problème. `React`
@@ -289,7 +274,7 @@ s'occupe de faire la transformation pour nous.
 
 ---
 
-## Subtilités: attributs HTML
+## Surprises et subtilités: attributs HTML
 
 `my-component.jsx` corrigé <i class="material-icons success">done</i>
 
@@ -316,7 +301,7 @@ ReactDOM.render(
 
 ---
 
-## Subtilités: gestion des évènements
+## Surprises et subtilités: gestion des évènements
 
 ```xml
 class MyComponent extends React.Component {
@@ -347,14 +332,14 @@ class MyComponent extends React.Component {
 }
 ```
 
-Il existe d'[autres solutions](https://facebook.github.io/react/docs/handling-events.html)
-pour la gestion des évènements.
+Il existe d'[autres solutions](https://facebook.github.io/react/docs/handling-events.html).
 
 <aside class="notes">
     Expliquer pourquoi onclick="this.handleClick()"
     ne fonctionne pas dans React.
     -> This est problématique dans ce contexte.
 </aside>
+
 ---
 
 ## State (état)
@@ -370,7 +355,6 @@ pour la gestion des évènements.
       l'actualisation automatique du component.
       Pratique pour un fil d'actualité avec des
       appels AJAX à intervalle régulier.
-      (long polling)
 </aside>
 
 ---
@@ -452,6 +436,34 @@ relation component parent - component(s) enfant.
 
 ---
 
+## Lifecycle
+
+* `componentDidMount`: appelée lorsque le component est monté. On peut y faire
+  les appels AJAX, instancier un ou plusieurs timers pour des appels AJAX
+  réguliers, etc.
+
+<aside class="notes">
+    Il serait mieux d'utiliser des WebSocket
+    plutôt que des appels AJAX réguliers mais
+    c'est l'approche simple et naïve.
+</aside>
+---
+
+## Lifecycle
+
+* `componentWillUnmount`: appelée lorsque le component va être démonté. On y
+  supprime le/les timer(s) instancié(s) dans `componentDidMount`.
+
+---
+
+## Lifecycle
+
+_`componentDidMount` et `componentWillUnmount` existent pour ne pas faire de
+tâches suceptibles de prendre du temps dans le constructeur._ L'affichage du
+component ne doit pas être retardé par une de ces tâches.
+
+---
+
 ## Exercices
 
 * Formulaire simple avec un titre changeant dynamiquement.
@@ -461,9 +473,26 @@ relation component parent - component(s) enfant.
 
 ---
 
+## Alternatives
+
+* [vue.js](https://vuejs.org/)
+* [Riot.js](http://riotjs.com/)
+* [Ember.js](http://emberjs.com/)
+* [Polymer](https://www.polymer-project.org/1.0/)
+
+---
+
 ## Inconvénients
 
-* Si on désactive JavaScript, plus rien ne s'affiche.
+* Courbe d'apprentissage de petite importance.
+* L'utiliser avec un framework MVC comme [Ruby On Rails](rubyonrails.org) ou
+  [Laravel](https://laravel.com/) demande un peu de configuration.
+* React n'est pas un framework! Il faut l'utiliser avec d'autres bibliothèques/
+  frameworks comme [Redux](http://redux.js.org/), [Realy](https://facebook.github.io/relay/),
+  [Fetch](https://developer.mozilla.org/en/docs/Web/API/Fetch_API), [jQuery](https://jquery.com),
+  etc.
+* Si l'utilisateur désactive JavaScript, plus rien ne s'affiche.
+
 
 ---
 
@@ -473,11 +502,17 @@ relation component parent - component(s) enfant.
 * Possibilité de stocker et modifier les informations à l'aide des états.
 * On ne s'embête plus avec DOM et on gagne en performance grâce à Virtual DOM.
 * Transmission d'informations entre components grâce aux propriétés.
+* Complémentraire à [Angular](https://www.angularjs.org/),
+  [Backbone](http://backbonejs.org/), [jQuery](https://jquery.com), etc.
+* Applications de petite taille comparées à des applications faites avec
+  Angular 2.
 
 <aside class="notes">
     - Il n'y as pas de notion d'état avec jQuery.
+    - React s'occupe de l'organisation/modification
+      du DOM pour nous.
     - React est-il plus rapide que jQuery?
-      Probablement parce qu'il ne reparcourt pas
+      Probablement car il ne reparcourt pas
       tout le DOM à chaque modification.
 </aside>
 
@@ -485,7 +520,7 @@ relation component parent - component(s) enfant.
 
 ## Questions ?
 
-![](https://media.giphy.com/media/dXICCcws9oxxK/giphy.gif)
+![](https://media.giphy.com/media/dXICCcws9oxxK/giphy.gif){ width=900px }
 
 ---
 
@@ -493,9 +528,49 @@ relation component parent - component(s) enfant.
 
 * [Article Wikipedia sur React](https://en.wikipedia.org/wiki/React_(JavaScript_library))
 * [Documentation officielle de React](https://facebook.github.io/react-native/docs/getting-started.html)
-* [Cours __Powering Up With React__ de Code School](https://www.codeschool.com/courses/powering-up-with-react)
-* [JSX](https://jsx.github.io/)
-* [The difference between the Virtual DOM and DOM](http://reactkungfu.com/2015/10/the-difference-between-virtual-dom-and-dom/)
 * [Getting Started with React and JSX](https://www.sitepoint.com/getting-started-react-jsx/)
+* [Cours __Powering Up With React__ de Code School](https://www.codeschool.com/courses/powering-up-with-react)
+* [The difference between the Virtual DOM and DOM](http://reactkungfu.com/2015/10/the-difference-between-virtual-dom-and-dom/)
+* [React Elements vs React Components](https://tylermcginnis.com/react-elements-vs-react-components/)
+* [Angular 2 versus React: There Will Be Blood](https://medium.freecodecamp.com/angular-2-versus-react-there-will-be-blood-66595faafd51#.iwb2coio6)
+* [JSX](https://jsx.github.io/)
 * [Babel](https://babeljs.io/)
 * [Working with Sass, Bootstrap and Gulp](http://david-barreto.com/working-with-sass-bootstrap-and-gulp/git)
+
+---
+
+# Annexes
+
+---
+
+## Installation
+
+Procédure assez simple:
+
+```console
+$ npm install react react-dom babel-standalone
+```
+
+On inclue `react.js`, `react-dom.js` et `babel.js` ou leurs versions
+minifiées dans nos fichiers HTML et en voiture Simone!
+
+_PS: Utiliser `babel-standalone` en développement et `babel` pour la
+production. (cf. notes)_
+
+<aside class="notes">
+    - react: la majeur partie de React.
+    - react-dom: partie de React permettant
+      d'utiliser Virtual DOM.
+    - babel: bibliothèque permettant d'exécuter
+      du code ES2015 côté navigateur ou autre
+      environnement "non-nodeJS".
+
+    babel-standalone est fait pour le développement
+    car il permet au navigateur de compiler les
+    fichiers jsx à la volée. Il est conseillé
+    d'utiliser la version standard de babel
+    pour compiler les fichiers jsx en js une
+    fois côté serveur. Évitant au client de
+    le faire à chaque fois et d'économiser
+    des ressources (côté client).
+</aside>
