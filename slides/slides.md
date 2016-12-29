@@ -1,5 +1,6 @@
 ---
-title: Réaliser des interfaces web avec React
+title: React
+subtitle: Une bibliothèque pour réaliser des interfaces web
 author: Bastien Burri, Julien M'Poy & Axel Roy
 date: 2016, Haute École Arc Ingénierie, Neuchâtel
 ---
@@ -10,7 +11,7 @@ date: 2016, Haute École Arc Ingénierie, Neuchâtel
 
 ---
 
-![](https://media.giphy.com/media/l41YBu8vgBGUHmGGI/giphy.gif){ width=600px }
+![](https://media.giphy.com/media/l41YBu8vgBGUHmGGI/giphy.gif){ width=900px }
 
 <aside class="notes">
     On a demandé à Donald ce qu'était React.
@@ -104,6 +105,9 @@ $ npm install react react-dom babel-standalone
 On inclue `react.js`, `react-dom.js` et `babel.js` ou leurs versions
 minifiées dans nos fichiers HTML et en voiture Simone!
 
+_PS: Utiliser `babel-standalone` en développement et `babel` pour la
+production. (cf. notes)_
+
 <aside class="notes">
     - react: la majeur partie de React.
     - react-dom: partie de React permettant
@@ -111,6 +115,15 @@ minifiées dans nos fichiers HTML et en voiture Simone!
     - babel: bibliothèque permettant d'exécuter
       du code ES2015 côté navigateur ou autre
       environnement "non-nodeJS".
+
+    babel-standalone est fait pour le développement
+    car il permet au navigateur de compiler les
+    fichiers jsx à la volée. Il est conseillé
+    d'utiliser la version standard de babel
+    pour compiler les fichiers jsx en js une
+    fois côté serveur. Évitant au client de
+    le faire à chaque fois et d'économiser
+    des ressources (côté client).
 </aside>
 ---
 
@@ -248,13 +261,13 @@ On utilise les accolades __{}__ pour faire du templating avec JavaScript.
 
 ---
 
-## Subtilités
+## Surprises et subtilités
 
-![](http://ljdchost.com/UZ3egO9.gif)
+![](http://ljdchost.com/UZ3egO9.gif){ width=900px }
 
 ---
 
-## Subtilités: attributs HTML
+## Surprises et subtilités: attributs HTML
 
 `my-component.jsx` donnant des erreurs <i class="material-icons danger">error</i>
 
@@ -281,7 +294,7 @@ ReactDOM.render(
 
 ---
 
-## Subtilités: attributs HTML
+## Surprises et subtilités: attributs HTML
 
 __`class`__ et __`for`__ sont des mots réservés en `JavaScript`. Il faut
 utiliser __`className`__ et __`htmlFor`__ pour palier à ce problème. `React`
@@ -289,7 +302,7 @@ s'occupe de faire la transformation pour nous.
 
 ---
 
-## Subtilités: attributs HTML
+## Surprises et subtilités: attributs HTML
 
 `my-component.jsx` corrigé <i class="material-icons success">done</i>
 
@@ -316,7 +329,7 @@ ReactDOM.render(
 
 ---
 
-## Subtilités: gestion des évènements
+## Surprises et subtilités: gestion des évènements
 
 ```xml
 class MyComponent extends React.Component {
@@ -347,14 +360,14 @@ class MyComponent extends React.Component {
 }
 ```
 
-Il existe d'[autres solutions](https://facebook.github.io/react/docs/handling-events.html)
-pour la gestion des évènements.
+Il existe d'[autres solutions](https://facebook.github.io/react/docs/handling-events.html).
 
 <aside class="notes">
     Expliquer pourquoi onclick="this.handleClick()"
     ne fonctionne pas dans React.
     -> This est problématique dans ce contexte.
 </aside>
+
 ---
 
 ## State (état)
@@ -452,6 +465,28 @@ relation component parent - component(s) enfant.
 
 ---
 
+## Lifecycle
+
+* `componentDidMount`: appelée lorsque le component est monté. On peut y faire
+  les appels AJAX, instancier un ou plusieurs timers pour du long polling, etc.
+
+---
+
+## Lifecycle
+
+* `componentWillUnmount`: appelée lorsque le component va être démonté. On y
+  supprime le/les timer(s) instancié(s) dans `componentDidMount`.
+
+---
+
+## Lifecycle
+
+_`componentDidMount` et `componentWillUnmount` existent pour ne pas faire de
+tâches suceptibles de prendre du temps dans le constructeur._ L'affichage du
+component ne doit pas être retardé par une de ces tâches.
+
+---
+
 ## Exercices
 
 * Formulaire simple avec un titre changeant dynamiquement.
@@ -476,8 +511,10 @@ relation component parent - component(s) enfant.
 
 <aside class="notes">
     - Il n'y as pas de notion d'état avec jQuery.
+    - React s'occupe de l'organisation/modification
+      du DOM pour nous.
     - React est-il plus rapide que jQuery?
-      Probablement parce qu'il ne reparcourt pas
+      Probablement car il ne reparcourt pas
       tout le DOM à chaque modification.
 </aside>
 
@@ -485,12 +522,13 @@ relation component parent - component(s) enfant.
 
 ## Questions ?
 
-![](https://media.giphy.com/media/dXICCcws9oxxK/giphy.gif)
+![](https://media.giphy.com/media/dXICCcws9oxxK/giphy.gif){ width=900px }
 
 ---
 
 ## Références
 
+* [Lien vers le repo Github de la présenation](https://github.com/HE-Arc/presentation-react)
 * [Article Wikipedia sur React](https://en.wikipedia.org/wiki/React_(JavaScript_library))
 * [Documentation officielle de React](https://facebook.github.io/react-native/docs/getting-started.html)
 * [Cours __Powering Up With React__ de Code School](https://www.codeschool.com/courses/powering-up-with-react)
