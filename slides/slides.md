@@ -447,6 +447,7 @@ relation component parent - component(s) enfant.
     plutôt que des appels AJAX réguliers mais
     c'est l'approche simple et naïve.
 </aside>
+
 ---
 
 ## Lifecycle
@@ -526,6 +527,7 @@ component ne doit pas être retardé par une de ces tâches.
 
 ## Références
 
+* [Lien vers le repo Github de la présenation](https://github.com/HE-Arc/presentation-react)
 * [Article Wikipedia sur React](https://en.wikipedia.org/wiki/React_(JavaScript_library))
 * [Documentation officielle de React](https://facebook.github.io/react-native/docs/getting-started.html)
 * [Getting Started with React and JSX](https://www.sitepoint.com/getting-started-react-jsx/)
