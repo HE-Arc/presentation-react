@@ -101,13 +101,14 @@ Bastien Burri, Julien M'Poy & Axel Roy
 
 ## React Component
 
-* Cas d'exemple de l'utilisation d'un component? (imbrication)
-* Génère une sortie à chaque appel. (méthode __`render()`__)
+* Classe JavaScript génèrant une sortie à chaque appel. (méthode __`render()`__)
 * A son propre Virtual DOM.
 * Contient des `React Elements` (`<div>`, `<p>`, ...).
 * Est __stateful__ contrairement aux `React Elements` qui sont __stateless__.
 
 <aside class="notes">
+    - Cas d'exemple de l'utilisation d'un
+      component? (imbrication)
     - Par sortie, on veux dire de l'HTML
     - Virtual DOM:
         1) Représentation en mémoire (VDOM)
@@ -117,38 +118,6 @@ Bastien Burri, Julien M'Poy & Axel Roy
     plusieurs fois le component. On ne charge
     que ce qui a changé. -> Gain de performances.
     Plus d'explications ici: http://reactkungfu.com/2015/10/the-difference-between-virtual-dom-and-dom/
-</aside>
-
----
-
-## Hello World
-
-Dans notre fichier `my-component.jsx`:
-
-```xml
-class MyComponent extends React.Component {
-    render() {
-        return (
-            <div>
-                <h1>Hello Wolrd</h1>
-                <p>Hello! It's me! Your first component !</p>
-            </div>
-        );
-    }
-}
-
-ReactDOM.render(
-    <MyComponent />, document.getElementById('my-component')
-)
-```
-
-<aside class="notes">
-    - Classe simple héritant de React.Component.
-      (toujours ainsi!)
-    - Deux arguments dans render:
-        * Quel composant appeler.
-        * Quel élément HTML est remplacé par ce
-          composant.
 </aside>
 
 ---
@@ -194,6 +163,38 @@ Dans notre fichier `index.html`:
 
 ## Hello World
 
+Dans notre fichier `my-component.jsx`:
+
+```xml
+class MyComponent extends React.Component {
+    render() {
+        return (
+            <div>
+                <h1>Hello Wolrd</h1>
+                <p>Hello! It's me! Your first component !</p>
+            </div>
+        );
+    }
+}
+
+ReactDOM.render(
+    <MyComponent />, document.getElementById('my-component')
+)
+```
+
+<aside class="notes">
+    - Classe simple héritant de React.Component.
+      (toujours ainsi!)
+    - Deux arguments dans render:
+        * Quel composant appeler.
+        * Quel élément HTML est remplacé par ce
+          composant.
+</aside>
+
+---
+
+## Hello World
+
 Expliquer ce qui se passe quand:
 
 1. Chargement des scripts de dépendances.
@@ -230,6 +231,129 @@ class AnimalsList extends React.Component {
 ```
 
 On utilise les accolades __{}__ pour faire du templating avec JavaScript.
+
+<aside class="notes">
+    - L'attribut "key" est important pour React.
+      Probablement pour l'identification des éléments
+      créés. A voir dans la doc officielle.
+</aside>
+
+---
+
+## State (état)
+
+* But: stocker de l'information propre au component.
+* Rendu du component en fonction de son état.
+* _Un changement d'état appelle automatiquement la méthode `render()`._
+
+<aside class="notes">
+    - Qu'est-ce qu'un état? Que peut on y mettre?
+      À quoi ça sert?
+    - L'appel systèmatique de render() permet
+      l'actualisation automatique du component.
+      Pratique pour un fil d'actualité avec des
+      appels AJAX à intervalle régulier.
+    - Un état est un objet JavaScript. On peut
+      y mettre des strings, booléens, des objets,
+      des tableaux, etc.
+    - this.setState fait un merge avec l'état
+      actuel. Seul les clefs modifiées sont
+      écrasées.
+</aside>
+
+---
+
+## State (état)
+
+```javascript
+class MainComponent extends React.Component {
+    constructor(props) {
+        super(props);
+        this.handleClick = this.handleClick.bind(this);
+        this.state = {
+            displayAnimalList: true,
+        };
+        this.animalsList = <AnimalsList />;
+    }
+    handleClick(e) {
+        if (this.state.displayAnimalList == false) {
+            this.animalsList = <AnimalsList />;
+        }
+        else {
+            this.animalsList = <div></div>;
+        }
+        this.setState({
+            displayAnimalList: !this.state.displayAnimalList
+        });
+    }
+```
+
+---
+
+## State(état)
+
+```xml
+    render() {
+        return (
+            <div>
+                <h1>
+                    Play {`with`} states and imbricate
+                    some components!
+                </h1>
+                <p>
+                    Use {`this switch`} button to display
+                    or hide the animals list.
+                </p>
+                <form>
+                    <label className="switch">
+                        <input type="checkbox" defaultChecked />
+                        <div className="slider round"
+                         onClick={this.handleClick}
+                        >
+                        </div>
+                    </label>
+                </form>
+                {this.animalsList}
+            </div>
+        );
+    }
+}
+```
+
+---
+
+## Lifecycle
+
+* `componentDidMount`: appelée lorsque le component est monté. On peut y faire
+  les appels AJAX, instancier un ou plusieurs timers pour des appels AJAX
+  réguliers, etc.
+* `componentWillUnmount`: appelée lorsque le component va être démonté. On y
+  supprime le/les timer(s) instancié(s) dans `componentDidMount`.
+
+<aside class="notes">
+    Il serait mieux d'utiliser des WebSocket
+    plutôt que des appels AJAX réguliers mais
+    c'est l'approche simple et naïve.
+</aside>
+
+---
+
+## Lifecycle
+
+_`componentDidMount` et `componentWillUnmount` existent pour ne pas faire de
+tâches susceptibles de prendre du temps dans le constructeur._ L'affichage du
+component ne doit pas être retardé par une de ces tâches.
+
+---
+
+## Props (propriétés)
+
+* Passage de valeurs entre component parent et component(s) enfant(s)
+
+<aside class="notes">
+    Qu'est-ce qu'une propriété? Comment en créer
+    et leur donner des valeurs? À quoi ça sert?
+</aside>
 
 ---
 
@@ -335,6 +459,8 @@ class MyComponent extends React.Component {
 Il existe d'[autres solutions](https://facebook.github.io/react/docs/handling-events.html).
 
 <aside class="notes">
+    On utilise onClick et pas onclick comme
+    habituellement.
     Expliquer pourquoi onclick="this.handleClick()"
     ne fonctionne pas dans React.
     -> This est problématique dans ce contexte.
@@ -342,126 +468,10 @@ Il existe d'[autres solutions](https://facebook.github.io/react/docs/handling-ev
 
 ---
 
-## State (état)
-
-* But: stocker de l'information propre au component.
-* Rendu du component en fonction de son état.
-* _Un changement d'état appelle automatiquement la méthode `render()`._
-
-<aside class="notes">
-    - Qu'est-ce qu'un état? Que peut on y mettre?
-      À quoi ça sert?
-    - L'appelle systèmatique de render() permet
-      l'actualisation automatique du component.
-      Pratique pour un fil d'actualité avec des
-      appels AJAX à intervalle régulier.
-</aside>
-
----
-
-## State (état)
-
-```javascript
-class MainComponent extends React.Component {
-    constructor(props) {
-        super(props);
-        this.handleClick = this.handleClick.bind(this);
-        this.state = {
-            displayAnimalList: true,
-        };
-        this.animalsList = <AnimalsList />;
-    }
-    handleClick(e) {
-        if (this.state.displayAnimalList == false) {
-            this.animalsList = <AnimalsList />;
-        }
-        else {
-            this.animalsList = <div></div>;
-        }
-        this.setState({
-            displayAnimalList: !this.state.displayAnimalList
-        });
-    }
-```
-
----
-
-## State(état)
-
-```xml
-    render() {
-        return (
-            <div>
-                <h1>
-                    Play {`with`} states and imbricate
-                    some components!
-                </h1>
-                <p>
-                    Use {`this switch`} button to display
-                    or hide the animals list.
-                </p>
-                <form>
-                    <label className="switch">
-                        <input type="checkbox" defaultChecked />
-                        <div className="slider round"
-                         onClick={this.handleClick}
-                        >
-                        </div>
-                    </label>
-                </form>
-                {this.animalsList}
-            </div>
-        );
-    }
-}
-```
-
----
-
 ## Imbrication de components
 
 Exemple montrant comment imbriquer des composants. Expliquer comment gérer la
 relation component parent - component(s) enfant.
-
----
-
-## Props (propriétés)
-
-* Passage de valeurs entre component parent et component(s) enfant(s)
-
-<aside class="notes">
-    Qu'est-ce qu'une propriété? Comment en créer
-    et leur donner des valeurs? À quoi ça sert?
-</aside>
-
----
-
-## Lifecycle
-
-* `componentDidMount`: appelée lorsque le component est monté. On peut y faire
-  les appels AJAX, instancier un ou plusieurs timers pour des appels AJAX
-  réguliers, etc.
-
-<aside class="notes">
-    Il serait mieux d'utiliser des WebSocket
-    plutôt que des appels AJAX réguliers mais
-    c'est l'approche simple et naïve.
-</aside>
-
----
-
-## Lifecycle
-
-* `componentWillUnmount`: appelée lorsque le component va être démonté. On y
-  supprime le/les timer(s) instancié(s) dans `componentDidMount`.
-
----
-
-## Lifecycle
-
-_`componentDidMount` et `componentWillUnmount` existent pour ne pas faire de
-tâches suceptibles de prendre du temps dans le constructeur._ L'affichage du
-component ne doit pas être retardé par une de ces tâches.
 
 ---
 
@@ -483,20 +493,6 @@ component ne doit pas être retardé par une de ces tâches.
 
 ---
 
-## Inconvénients
-
-* Courbe d'apprentissage de petite importance.
-* L'utiliser avec un framework MVC comme [Ruby On Rails](rubyonrails.org) ou
-  [Laravel](https://laravel.com/) demande un peu de configuration.
-* React n'est pas un framework! Il faut l'utiliser avec d'autres bibliothèques/
-  frameworks comme [Redux](http://redux.js.org/), [Realy](https://facebook.github.io/relay/),
-  [Fetch](https://developer.mozilla.org/en/docs/Web/API/Fetch_API), [jQuery](https://jquery.com),
-  etc.
-* Si l'utilisateur désactive JavaScript, plus rien ne s'affiche.
-
-
----
-
 ## Avantages
 
 * Composants d'interface réutilisables et imbricables.
@@ -515,7 +511,24 @@ component ne doit pas être retardé par une de ces tâches.
     - React est-il plus rapide que jQuery?
       Probablement car il ne reparcourt pas
       tout le DOM à chaque modification.
+    - Expliquer pourquoi React n'est pas un framework.
+      Quelle différence avec AngularJS? En quoi est-il
+      complémentaire? JS dans HTML vs HTML dans JS.
 </aside>
+
+---
+
+## Inconvénients
+
+* Facile à prendre en main.
+* React n'est pas un framework! Il faut l'utiliser avec d'autres bibliothèques/
+  frameworks comme [Redux](http://redux.js.org/), [Realy](https://facebook.github.io/relay/),
+  [Fetch](https://developer.mozilla.org/en/docs/Web/API/Fetch_API), [jQuery](https://jquery.com),
+  etc.
+* L'utiliser avec un framework MVC comme [Ruby On Rails](rubyonrails.org) ou
+  [Laravel](https://laravel.com/) demande un peu de configuration.
+* Si l'utilisateur désactive JavaScript, plus rien ne s'affiche.
+
 
 ---
 
