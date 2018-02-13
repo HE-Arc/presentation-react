@@ -1,43 +1,27 @@
 SOURCES = slides.md
 SLIDES = slides.html
-PDFS = slides.pdf
 
 .PHONY: all
-all: html pdf
+all: html
 
 .PHONY: html
 html: $(SLIDES)
-
-.PHONY: pdf
-pdf: $(PDFS)
 
 .PHONY: install
 install:
 	git clone https://github.com/hakimel/reveal.js.git
 
 $(SLIDES): %.html: %.md
-	pandoc -s -S -t revealjs slides.md -o slides.html \
+	pandoc -s -f markdown+smart -t revealjs slides.md -o slides.html \
+		--filter pandoc-include-code \
 		--css https://fonts.googleapis.com/icon?family=Material+Icons \
 		-H theme.html \
+		-M date="`date "+%B%e, %Y"`" \
 		--self-contained \
 		--variable theme="beige" \
 		--variable transition="convex" \
-
-$(PDFS): %.pdf: %.md
-	pandoc --latex-engine=xelatex \
-		-f markdown \
-		-t latex \
-		-H theme.tex \
-		--variable papersize=a4 \
-		--variable fontsize=12pt \
-		--variable mainfont="Linux Libertine O" \
-		--variable sansfont="Linux Biolinum O" \
-		--variable monofont="Inconsolata" \
-		--variable monofontoptions="Scale=0.9" \
-		--variable linkcolor="blue" \
-		--variable urlcolor="blue" \
-		-o $@ \
-		$^
+		--variable slideNumber="true" \
+		--variable showSlideNumber="true"
 
 .PHONY: clean
 clean:

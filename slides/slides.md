@@ -1,34 +1,27 @@
-# React
-
-Une bibliothèque pour réaliser des interfaces web
-
-Bastien Burri, Julien M'Poy & Axel Roy
-
-2016, Haute École Arc Ingénierie, Neuchâtel
-
-[https://github.com/HE-Arc/presentation-react](https://github.com/HE-Arc/presentation-react)
-
+---
+title: 'React'
+subtitle: 'Une bibliothèque pour réaliser des interfaces web (et plus encore)'
+author:
+  - Julien M'Poy
 ---
 
 ## Sommaire
 
-À faire en dernier par pitié pour éviter de le changer 25 mille fois.
+- Qu'est-ce que React?
+- Hello World
+- Notion de *state* (état)
+- Cycle de vie d'un composant (*lifecycle*)
+- Surprises et subtilités
+- Bibliothèques «React friendly»
+- Alternatives
+- Avantages et inconvénients
+- Questions
 
 ---
 
-![](https://media.giphy.com/media/l41YBu8vgBGUHmGGI/giphy.gif){ width=900px }
+## Qu'est-ce que React?
 
-<aside class="notes">
-    On a demandé à Donald ce qu'était React.
-    Il nous a dit qu'il savait pas.
-    Et vous? Qui connaît? C'est quoi?
-</aside>
-
----
-
-## React c'est quoi?
-
-![](https://facebook.github.io/react/img/logo.svg){ width=150px }
+![](images/react-logo.svg){ width=150px }
 
 * Bibliothèque Javascript pour créer des interfaces web.
 * Développé par Jordan Walke chez Facebook en 2011 (opensourcé en 2013).
@@ -62,25 +55,24 @@ Bastien Burri, Julien M'Poy & Axel Roy
 
 ## Compétences requises
 
-* JavaScript
-* [ES2015](https://babeljs.io/learn-es2015/)
+* JavaScript ([npm](https://en.wikipedia.org/wiki/Npm_(software)))
+* [ES2015](https://babeljs.io/learn-es2015/) (aussi appelé ES6)
+* [Webpack](https://webpack.js.org/) et [Babel](https://babeljs.io/)
 
 <aside class="notes">
     - Peu de compétences nécessaires.
-    - Compétences plutôt simples à acquérir. La
-      qualité du code viendra avec l'expérience.
+    - Compétences plutôt simples à acquérir.
+      La qualité du code viendra avec l'expérience.
+    - Plus besoin de s'embêter avec Webpack et Babel
+      avec create-react-app.
 </aside>
 
 ---
 
-## Fonctionnalités principales
+## Caractéristiques de React
 
 * [JSX](https://facebook.github.io/react/docs/jsx-in-depth.html)
 * [Virtual DOM](http://reactkungfu.com/2015/10/the-difference-between-virtual-dom-and-dom/)
-* Architecture au-dessus d'HTML
-* React Native
-* [React Developer Tools](https://github.com/facebook/react-devtools)
-  disponibles pour les navigateurs ou en standalone.
 
 <aside class="notes">
     - JSX: JavaScript eXtension syntax
@@ -88,28 +80,26 @@ Bastien Burri, Julien M'Poy & Axel Roy
       ou des backticks.
     - Principe de composant un peu à la Qt
     - Permet de créer des composants réutilisables
+      (dans l'idéal)
     - DOM: Document Object Model
     - Data binding
     - Architecture: on définit un tag XML
       correspondant à notre composant et il
       se monte dessus tout seul.
-    - React Native: proposer l'architecture de React
-      pour des application iOS et Android.
 </aside>
 
 ---
 
-## React Component
+## Composant React -- _Component_
 
-* Classe JavaScript génèrant une sortie à chaque appel. (méthode __`render()`__)
-* A son propre Virtual DOM.
-* Contient des `React Elements` (`<div>`, `<p>`, ...).
-* Est __stateful__ contrairement aux `React Elements` qui sont __stateless__.
+- Classe **ou** fonction JavaScript.
+- Un composant a son propre Virtual DOM.
+- Il contient des _React Elements_ (`<div>`, `<p>`, ...) ou
+  d'autres composants React.
+- Tout composant retourne son DOM lorsqu'il est monté
+  (méthode `render()` dans le cas d'un classe)
 
 <aside class="notes">
-    - Cas d'exemple de l'utilisation d'un
-      component? (imbrication)
-    - Par sortie, on veux dire de l'HTML
     - Virtual DOM:
         1) Représentation en mémoire (VDOM)
         2) Rendu dans le navigateur
@@ -126,22 +116,7 @@ Bastien Burri, Julien M'Poy & Axel Roy
 
 Dans notre fichier `index.html`:
 
-```html
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>React - Hello World</title>
-        <link rel="stylesheet" href="../../css/app.css">
-    </head>
-    <body class="container">
-        <div id="my-component"></div>
-        <script src="../../node_modules/react/dist/react.js"></script>
-        <script src="../../node_modules/react-dom/dist/react-dom.js"></script>
-        <script src="../../node_modules/babel-standalone/babel.js"></script>
-        <script type="text/babel" src="MyComponent.jsx"></script>
-    </body>
-</html>
+```{.html include=../examples/01-hello-world/dist/index.html}
 ```
 
 <aside class="notes">
@@ -150,6 +125,7 @@ Dans notre fichier `index.html`:
     - Installation:
         - Utiliser WebPack ou Browserify car "require"
           n'est pas connu par le navigateur.
+    - Installation facilitée avec create-react-app
     - Babel permet de garantir que le navigateur
       comprendra le code ES6 et le JSX. Solution
       plus simple.
@@ -163,86 +139,164 @@ Dans notre fichier `index.html`:
 
 ## Hello World
 
-Dans notre fichier `my-component.jsx`:
+Dans notre fichier `index.js`:
 
-```xml
-class MyComponent extends React.Component {
-    render() {
-        return (
-            <div>
-                <h1>Hello Wolrd</h1>
-                <p>Hello! It's me! Your first component !</p>
-            </div>
-        );
-    }
-}
-
-ReactDOM.render(
-    <MyComponent />, document.getElementById('my-component')
-)
+```{.js include=../examples/01-hello-world/js/index.js}
 ```
 
 <aside class="notes">
-    - Classe simple héritant de React.Component.
-      (toujours ainsi!)
-    - Deux arguments dans render:
-        * Quel composant appeler.
-        * Quel élément HTML est remplacé par ce
-          composant.
+  - Deux arguments dans render:
+    * Quel composant appeler.
+    * Quel élément HTML est remplacé par ce
+      composant.
 </aside>
+
+---
+
+## Hello World: variante fonctionnelle
+
+```{.js include=../examples/01-hello-world/js/AppFunction.js}
+```
+
+---
+
+## Hello World: variante orientée objet
+
+```{.js include=../examples/01-hello-world/js/AppClass.js}
+```
 
 ---
 
 ## Hello World
 
-Expliquer ce qui se passe quand:
+Déroulement de l'exécution:
 
 1. Chargement des scripts de dépendances.
 2. Chargement du component.
 3. `ReactDOM` affiche le component.
-4. Virtual DOM.
-5. `render()`.
+4. Création du DOM virtuel (Virtual DOM).
+5. Appel de `render()` et affichage du DOM virtuel dans le DOM.
 
-Un petit schéma explicatif?
+<!-- Un petit schéma explicatif? -->
+
+---
+
+## Propriétés -- _Props_
+
+* Affichage dynamique du composant en fonction de ses propriétés
+  (_templating_).
+* Passage de valeurs entre composants parents et composants enfants.
 
 ---
 
 ## Templating
 
-```js
-class AnimalsList extends React.Component {
-    render() {
-        const superAnimals = [
-            'octocat',
-            'fuzzybadger',
-            'fictionnal rat'
-        ];
-        return (
-            <div>
-                <h1>Howdie!</h1>
-                <p>Here are your animals!</p>
-                <ul>
-                    {superAnimals.map((animal, index) => <li key={index}>{animal}</li> )}
-                </ul>
-            </div>
-        );
-    }
-}
+```{.js include=../examples/02-templating/js/App.js}
 ```
 
-On utilise les accolades __{}__ pour faire du templating avec JavaScript.
+---
+
+## Templating: variante fonctionnelle
+
+```{.js include=../examples/02-templating/js/components/AnimalsList.js}
+```
+
+Le templating avec JavaScriptn se fait avec _{}_.
 
 <aside class="notes">
-    - L'attribut "key" est important pour React.
-      Probablement pour l'identification des éléments
-      créés. A voir dans la doc officielle.
+    - "key" est important pour identifier chaque
+      composant lorsque l'on se base sur un tableau
+      pour créer des componsants.
+    - Utiliser "index" pour "key" est une mauvaise pratique.
 </aside>
 
 ---
 
-## State (état)
+## Templating: variante orientée objet
 
-* But: stocker de l'information propre au component.
+```{.js include=../examples/02-templating/js/containers/AnimalsList.js}
+```
+
+---
+
+## Propriétés utiles
+
+- `this.props.children`
+
+---
+
+## Propriété `children`
+
+Dans notre `index.js`:
+
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+const MyComponent= (props) => {
+  return (
+    <div>
+      {this.props.children}
+    </div>
+  );
+};
+
+const App = (props) => {
+  return (
+    <MyComponent>
+      <h1>First child<h1>
+      <p>Second child<p>
+      <p>Third child<p>
+    </MyComponent>
+  );
+};
+
+ReactDOM.render(<App/>, document.getElementById('root'));
+```
+
+---
+
+## État -- _State_
+
+Un composant peut posséder un état (__stateful__) ou non (__stateless__).
+
+- __stateful__
+    - _Class component_
+- __stateless__
+    - React Elements
+    - _Functionnal Components_
+
+---
+
+## État
+
+En général:
+
+- Un _component_ est un composant stateless. Souvent une fonction avec des propriétés.
+- Un _container_ est un composant stateful. Souvent une classe.
+
+---
+
+## État
+
+- _component_
+  - Responsable de la présentation de l'information.
+  - Rôle proche d'une vue dans un pattern MVC.
+- _container_
+  - Contient un ou plusieurs composants.
+  - Possède une logique propre (_AJAX_, middleware, etc.).
+  - Comportement semblable à un contrôleur dans un pattern MVC.
+
+<aside class="notes">
+  - Transmission de l'information entre container et composant
+    par les propriétés
+</aside>
+
+---
+
+## État
+
+* Contient l'information propre au composant.
 * Rendu du component en fonction de son état.
 * _Un changement d'état appelle automatiquement la méthode `render()`._
 
@@ -263,7 +317,7 @@ On utilise les accolades __{}__ pour faire du templating avec JavaScript.
 
 ---
 
-## State (état)
+## État
 
 ```javascript
 class MainComponent extends React.Component {
@@ -286,11 +340,12 @@ class MainComponent extends React.Component {
             displayAnimalList: !this.state.displayAnimalList
         });
     }
+}
 ```
 
 ---
 
-## State(état)
+## État
 
 ```xml
     render() {
@@ -319,6 +374,13 @@ class MainComponent extends React.Component {
     }
 }
 ```
+---
+
+## Propriétés vs État
+
+- Les propriétés sont définies au moment de la création du composant.
+- L'état possède un état initial au momen où il est créé mais
+  l'état peut changer après la création du composant. (≠ propriétés)
 
 ---
 
@@ -344,24 +406,15 @@ _`componentDidMount` et `componentWillUnmount` existent pour ne pas faire de
 tâches susceptibles de prendre du temps dans le constructeur._ L'affichage du
 component ne doit pas être retardé par une de ces tâches.
 
----
-
-## Props (propriétés)
-
-* Passage de valeurs entre component parent et component(s) enfant(s)
-
-<aside class="notes">
-    Qu'est-ce qu'une propriété? Comment en créer
-    et leur donner des valeurs? À quoi ça sert?
-</aside>
-
----
+<!---
 
 ## Surprises et subtilités
 
 ![](http://ljdchost.com/UZ3egO9.gif){ width=900px }
+--->
 
 ---
+
 
 ## Surprises et subtilités: attributs HTML
 
@@ -466,14 +519,13 @@ Il existe d'[autres solutions](https://facebook.github.io/react/docs/handling-ev
     -> This est problématique dans ce contexte.
 </aside>
 
----
+<!--
 
 ## Imbrication de components
 
 Exemple montrant comment imbriquer des composants. Expliquer comment gérer la
 relation component parent - component(s) enfant.
 
----
 
 ## Exercices
 
@@ -482,11 +534,46 @@ relation component parent - component(s) enfant.
 * T'es un champion? Fais le kanban avec le drag'n drop! Voici un [tutoriel](https://www.html5rocks.com/en/tutorials/dnd/basics/)
   expliquant comment utiliser l'[API Drag and drop de HTML5](https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API).
 
+-->
+
+---
+
+## Outils de debuggage
+
+* [React Developer Tools](https://github.com/facebook/react-devtools)
+  disponibles pour les navigateurs ou en standalone.
+
+---
+
+## React sur mobile
+
+- Avec [React Native](https://facebook.github.io/react-native/)
+- Une grande parties des bibliothèques «React friendly» sont utilisables sur
+  mobile.
+
+<aside class="notes">
+    - React Native: proposer l'architecture de React
+      pour des application iOS et Android.
+</aside>
+
+---
+
+## Bibliothèques «React friendly»
+
+- [React router](https://reacttraining.com/react-router/)
+- Gestion des états
+  - [Redux](https://redux.js.org/docs/introduction/)
+  - [MobX](https://mobx.js.org/getting-started.html)
+- Web design
+  - [Material-UI](http://www.material-ui.com/#/)
+  - [Semantic UI](https://react.semantic-ui.com/introduction)
+  - [reactstrap](https://reactstrap.github.io/)
+
 ---
 
 ## Alternatives
 
-* [vue.js](https://vuejs.org/)
+* [Vue.js](https://vuejs.org/)
 * [Riot.js](http://riotjs.com/)
 * [Ember.js](http://emberjs.com/)
 * [Polymer](https://www.polymer-project.org/1.0/)
@@ -495,9 +582,15 @@ relation component parent - component(s) enfant.
 
 ## Avantages
 
+* Assez simple à prendre en main.
 * Composants d'interface réutilisables et imbricables.
 * Possibilité de stocker et modifier les informations à l'aide des états.
 * On ne s'embête plus avec DOM et on gagne en performance grâce à Virtual DOM.
+
+---
+
+## Avantages
+
 * Transmission d'informations entre components grâce aux propriétés.
 * Complémentraire à [Angular](https://www.angularjs.org/),
   [Backbone](http://backbonejs.org/), [jQuery](https://jquery.com), etc.
@@ -520,7 +613,6 @@ relation component parent - component(s) enfant.
 
 ## Inconvénients
 
-* Facile à prendre en main.
 * React n'est pas un framework! Il faut l'utiliser avec d'autres bibliothèques/
   frameworks comme [Redux](http://redux.js.org/), [Realy](https://facebook.github.io/relay/),
   [Fetch](https://developer.mozilla.org/en/docs/Web/API/Fetch_API), [jQuery](https://jquery.com),
@@ -541,9 +633,16 @@ relation component parent - component(s) enfant.
 ## Références
 
 * [Lien vers le repo Github de la présenation](https://github.com/HE-Arc/presentation-react)
+* [React, Redux and JavaScript Architecture](https://jrsinclair.com/articles/2018/react-redux-javascript-architecture/)
 * [Article Wikipedia sur React](https://en.wikipedia.org/wiki/React_(JavaScript_library))
 * [Documentation officielle de React](https://facebook.github.io/react-native/docs/getting-started.html)
 * [Getting Started with React and JSX](https://www.sitepoint.com/getting-started-react-jsx/)
+* [How to set up React, Webpack 3, and Babel, in 2017](https://www.valentinog.com/blog/react-webpack-babel/)
+
+---
+
+## Références
+
 * [Cours __Powering Up With React__ de Code School](https://www.codeschool.com/courses/powering-up-with-react)
 * [The difference between the Virtual DOM and DOM](http://reactkungfu.com/2015/10/the-difference-between-virtual-dom-and-dom/)
 * [React Elements vs React Components](https://tylermcginnis.com/react-elements-vs-react-components/)
