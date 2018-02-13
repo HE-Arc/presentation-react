@@ -191,30 +191,30 @@ Déroulement de l'exécution:
 
 ## Templating
 
-```{.js include=../examples/02-templating/js/App.js}
+```{.js include=../examples/02-properties-and-templating/js/App.js}
 ```
 
 ---
 
 ## Templating: variante fonctionnelle
 
-```{.js include=../examples/02-templating/js/components/AnimalsList.js}
+```{.js include=../examples/02-properties-and-templating/js/components/AnimalsList.js}
 ```
 
 Le templating avec JavaScriptn se fait avec _{}_.
 
 <aside class="notes">
-    - "key" est important pour identifier chaque
-      composant lorsque l'on se base sur un tableau
-      pour créer des componsants.
-    - Utiliser "index" pour "key" est une mauvaise pratique.
+  - "key" est important pour identifier chaque
+    composant lorsque l'on se base sur un tableau
+    pour créer des componsants.
+  - Utiliser "index" pour "key" est une mauvaise pratique.
 </aside>
 
 ---
 
 ## Templating: variante orientée objet
 
-```{.js include=../examples/02-templating/js/containers/AnimalsList.js}
+```{.js include=../examples/02-properties-and-templating/js/containers/AnimalsList.js}
 ```
 
 ---
@@ -229,29 +229,7 @@ Le templating avec JavaScriptn se fait avec _{}_.
 
 Dans notre `index.js`:
 
-```js
-import React from 'react';
-import ReactDOM from 'react-dom';
-
-const MyComponent= (props) => {
-  return (
-    <div>
-      {this.props.children}
-    </div>
-  );
-};
-
-const App = (props) => {
-  return (
-    <MyComponent>
-      <h1>First child<h1>
-      <p>Second child<p>
-      <p>Third child<p>
-    </MyComponent>
-  );
-};
-
-ReactDOM.render(<App/>, document.getElementById('root'));
+```{.js include=../examples/03-children/js/index.js}
 ```
 
 ---
