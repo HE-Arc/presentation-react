@@ -201,7 +201,7 @@ Déroulement de l'exécution:
 ```{.js include=../examples/02-properties-and-templating/js/components/AnimalsList.js}
 ```
 
-Le templating avec JavaScriptn se fait avec _{}_.
+Le templating côté JavaScript se fait avec _{}_.
 
 <aside class="notes">
   - "key" est important pour identifier chaque
@@ -297,61 +297,12 @@ En général:
 
 ## État
 
-```javascript
-class MainComponent extends React.Component {
-    constructor(props) {
-        super(props);
-        this.handleClick = this.handleClick.bind(this);
-        this.state = {
-            displayAnimalList: true,
-        };
-        this.animalsList = <AnimalsList />;
-    }
-    handleClick(e) {
-        if (this.state.displayAnimalList == false) {
-            this.animalsList = <AnimalsList />;
-        }
-        else {
-            this.animalsList = <div></div>;
-        }
-        this.setState({
-            displayAnimalList: !this.state.displayAnimalList
-        });
-    }
-}
+Dans notre `index.js`:
+
+```{.js include=../examples/04-state-and-events/js/index.js}
+
 ```
 
----
-
-## État
-
-```xml
-    render() {
-        return (
-            <div>
-                <h1>
-                    Play {`with`} states and imbricate
-                    some components!
-                </h1>
-                <p>
-                    Use {`this switch`} button to display
-                    or hide the animals list.
-                </p>
-                <form>
-                    <label className="switch">
-                        <input type="checkbox" defaultChecked />
-                        <div className="slider round"
-                         onClick={this.handleClick}
-                        >
-                        </div>
-                    </label>
-                </form>
-                {this.animalsList}
-            </div>
-        );
-    }
-}
-```
 ---
 
 ## Propriétés vs État
@@ -400,18 +351,18 @@ component ne doit pas être retardé par une de ces tâches.
 
 ```xml
 class MyComponent extends React.Component {
-    render() {
-        return (
-            <div class="form-component">
-                <h1>Hello world</h1>
-                <p>Hello! It's me! Your first component!</p>
-                <form>
-                    <label for="message">Message : <label>
-                    <input id="message" name="message" value="">
-                </form>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div class="form-component">
+        <h1>Hello world</h1>
+        <p>Hello! It's me! Your first component!</p>
+        <form>
+          <label for="message">Message : <label>
+          <input id="message" name="message" value="">
+        </form>
+      </div>
+    );
+  }
 }
 
 ReactDOM.render(
@@ -423,8 +374,8 @@ ReactDOM.render(
 
 ## Surprises et subtilités: attributs HTML
 
-__`class`__ et __`for`__ sont des mots réservés en `JavaScript`. Il faut
-utiliser __`className`__ et __`htmlFor`__ pour palier à ce problème. `React`
+`class`,`for`, `this`, `with` et `switch` sont des mots réservés en `JavaScript`. Il faut
+utiliser `className` et `htmlFor` pour palier à ce problème. `React`
 s'occupe de faire la transformation pour nous.
 
 ---
@@ -435,18 +386,18 @@ s'occupe de faire la transformation pour nous.
 
 ```xml
 class MyComponent extends React.Component {
-    render() {
-        return (
-            <div className="form-component">
-                <h1>Hello world</h1>
-                <p>Hello! It's me! Your first component!</p>
-                <form>
-                    <label htmlFor="message">Message : <label>
-                    <input id="message" name="message" value="">
-                </form>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div className="form-component">
+        <h1>Hello world</h1>
+        <p>Hello! It's me! Your first component!</p>
+        <form>
+          <label htmlFor="message">Message : <label>
+          <input id="message" name="message" value="">
+        </form>
+      </div>
+    );
+  }
 }
 
 ReactDOM.render(
@@ -458,36 +409,8 @@ ReactDOM.render(
 
 ## Surprises et subtilités: gestion des évènements
 
-```xml
-class MyComponent extends React.Component {
-    constructor(props) {
-        super(props);
-        this.handleClick = this.handleClick.bind(this);
-    }
-
-    handleClick(e) {
-        alert('You toggled me! How kind you are!');
-    }
-
-    render() {
-        return (
-            <div>
-                <h1>Event Handling</h1>
-                <p>Enjoy that toggle button!</p>
-                    <label className="switch">
-                        <input type="checkbox"></input>
-                        <div className="slider round"
-                            onClick={this.handleClick}
-                        >
-                        </div>
-                    </label>
-            </div>
-        );
-    }
-}
-```
-
-Il existe d'[autres solutions](https://facebook.github.io/react/docs/handling-events.html).
+Il existe d'[autres solutions](https://facebook.github.io/react/docs/handling-events.html)
+que `bind`.
 
 <aside class="notes">
     On utilise onClick et pas onclick comme
@@ -498,13 +421,6 @@ Il existe d'[autres solutions](https://facebook.github.io/react/docs/handling-ev
 </aside>
 
 <!--
-
-## Imbrication de components
-
-Exemple montrant comment imbriquer des composants. Expliquer comment gérer la
-relation component parent - component(s) enfant.
-
-
 ## Exercices
 
 * Formulaire simple avec un titre changeant dynamiquement.
@@ -516,18 +432,24 @@ relation component parent - component(s) enfant.
 
 ---
 
-## Outils de debuggage
+## Outils dédiés à React
 
-* [React Developer Tools](https://github.com/facebook/react-devtools)
-  disponibles pour les navigateurs ou en standalone.
+- [React Developer Tools](https://github.com/facebook/react-devtools)
+  disponibles pour les navigateurs ou en standalone (utile pour le debuggage).
+- [create-react-app](https://github.com/facebook/create-react-app)
+
+<aside class="notes">
+  * create-react-app: libre à vous de le modifier ou de mettre en place
+    la toolchain qui vous plaît à la main ou avec une autre solution.
+</aside>
 
 ---
 
 ## React sur mobile
 
 - Avec [React Native](https://facebook.github.io/react-native/)
-- Une grande parties des bibliothèques «React friendly» sont utilisables sur
-  mobile.
+- Une grande parties des bibliothèques «React friendly»  et autres bibliothèque
+  JavaScript sont utilisables sur mobile.
 
 <aside class="notes">
     - React Native: proposer l'architecture de React
@@ -547,6 +469,9 @@ relation component parent - component(s) enfant.
   - [Semantic UI](https://react.semantic-ui.com/introduction)
   - [reactstrap](https://reactstrap.github.io/)
 
+<aside class="notes">
+  * react-router: «learn once, use everywhere!»
+</aside>
 ---
 
 ## Alternatives
