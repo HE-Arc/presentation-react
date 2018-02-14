@@ -1,18 +1,18 @@
-SOURCES = slides.md
-SLIDES = slides.html
+BUILDDIR  = build
 
 .PHONY: all
-all: html
+all: slides.html
 
-.PHONY: html
-html: $(SLIDES)
-
-.PHONY: install
-install:
-	git clone https://github.com/hakimel/reveal.js.git
-
-$(SLIDES): %.html: %.md
-	pandoc -s -f markdown+smart -t revealjs slides.md -o slides.html \
+slides.html: slides.md
+	if [ ! -d "reveal.js" ]; then \
+		git clone https://github.com/hakimel/reveal.js.git; \
+	fi
+	mkdir -p build
+	pandoc -s \
+		-f markdown+smart \
+		-t revealjs \
+		$< \
+		-o $(BUILDDIR)/$@ \
 		--filter pandoc-include-code \
 		--css https://fonts.googleapis.com/icon?family=Material+Icons \
 		-H theme.html \
@@ -25,4 +25,4 @@ $(SLIDES): %.html: %.md
 
 .PHONY: clean
 clean:
-	rm -f $(PDFS) $(SLIDES)
+	rm -r $(BUILDDIR)

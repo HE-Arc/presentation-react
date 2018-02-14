@@ -21,7 +21,7 @@ author:
 
 ## Qu'est-ce que React?
 
-![](images/react-logo.svg){ width=150px }
+![](./img/react-logo.svg){ width=150px }
 
 * Bibliothèque Javascript pour créer des interfaces web.
 * Développé par Jordan Walke chez Facebook en 2011 (opensourcé en 2013).
@@ -122,7 +122,7 @@ author:
 
 Dans notre fichier `index.html`:
 
-```{.html include=../examples/01-hello-world/dist/index.html}
+```{.html include=examples/01-hello-world/dist/index.html}
 ```
 
 <aside class="notes">
@@ -147,7 +147,7 @@ Dans notre fichier `index.html`:
 
 Dans notre fichier `index.js`:
 
-```{.js include=../examples/01-hello-world/js/index.js}
+```{.js include=examples/01-hello-world/js/index.js}
 ```
 
 <aside class="notes">
@@ -161,14 +161,14 @@ Dans notre fichier `index.js`:
 
 ## Hello World: variante fonctionnelle
 
-```{.js include=../examples/01-hello-world/js/AppFunction.js}
+```{.js include=examples/01-hello-world/js/AppFunction.js}
 ```
 
 ---
 
 ## Hello World: variante orientée objet
 
-```{.js include=../examples/01-hello-world/js/AppClass.js}
+```{.js include=examples/01-hello-world/js/AppClass.js}
 ```
 
 ---
@@ -197,14 +197,14 @@ Déroulement de l'exécution:
 
 ## Templating
 
-```{.js include=../examples/02-properties-and-templating/js/App.js}
+```{.js include=examples/02-properties-and-templating/js/App.js}
 ```
 
 ---
 
 ## Templating: variante fonctionnelle
 
-```{.js include=../examples/02-properties-and-templating/js/components/AnimalsList.js}
+```{.js include=examples/02-properties-and-templating/js/components/AnimalsList.js}
 ```
 
 Le templating côté JavaScript se fait avec _{ }_.
@@ -220,7 +220,7 @@ Le templating côté JavaScript se fait avec _{ }_.
 
 ## Templating: variante orientée objet
 
-```{.js include=../examples/02-properties-and-templating/js/containers/AnimalsList.js}
+```{.js include=examples/02-properties-and-templating/js/containers/AnimalsList.js}
 ```
 
 ---
@@ -235,7 +235,7 @@ Le templating côté JavaScript se fait avec _{ }_.
 
 Dans notre `index.js`:
 
-```{.js include=../examples/03-children/js/index.js}
+```{.js include=examples/03-children/js/index.js}
 ```
 
 ---
@@ -309,7 +309,7 @@ En général:
 
 Dans notre `index.js`:
 
-```{.js include=../examples/04-state-and-events/js/index.js}
+```{.js include=examples/04-state-and-events/js/index.js}
 
 ```
 

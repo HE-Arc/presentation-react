@@ -1,0 +1,43 @@
+ist: trusty
+sudo: required
+
+language: generic
+
+cache: apt
+
+env:
+  global:
+    - PANDOC_VERSION=2.0.3
+
+addons:
+  apt:
+    packages:
+      - build-essential
+      - nodejs
+
+install:
+  - wget https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-${PANDOC_VERSION}-1-amd64.deb -O pandoc.deb
+  - sudo dpkg -i pandoc.deb
+  - sudo apt-get install cabal-install
+  - sudo cabal install pandoc-include-code
+  - sudo apt-get install cabal-install
+  - sudo cabal install pandoc-include-code
+
+script:
+  make all
+
+after_success:
+  - >
+    test "${TRAVIS_PULL_REQUEST}" = "false" \
+      && test "${TRAVIS_BRANCH}" = "master" \
+      && ( \
+        cd build
+        mv slides.html index.html
+        git init
+        git config user.name "TravisCI"
+        git config user.email "travis@he-arc.test"
+        git add .
+        git commit -m "Deployed to github pages"
+        git push -f -q "https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}" master:gh-pages
+      ) \
+      || echo ":-)"
