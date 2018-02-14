@@ -20,7 +20,7 @@ install:
   - sudo dpkg -i pandoc.deb
   - sudo apt-get install cabal-install
   - sudo cabal update
-  - git clone git@github.com:owickstrom/pandoc-include-code.git
+  - git clone https://github.com/owickstrom/pandoc-include-code.git
   - cd pandoc-include-code
   - cabal configure
   - cabal install
