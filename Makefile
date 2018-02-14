@@ -31,8 +31,7 @@ $(EXAMPLES): $(EXAMPLES_DIST)
 $(EXAMPLES_DIST): $(EXAMPLES_SRC)
 
 $(EXAMPLES_SRC): $(NODEDIR)
-	cd $@
-	npm run build
+	cd $@ && npm run build # ONESHELL issue?
 
 $(REVEALJS):
 	git clone https://github.com/hakimel/reveal.js.git;
