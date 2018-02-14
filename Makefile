@@ -12,10 +12,11 @@ SLIDES        = $(BUILDDIR)/slides.html
 .PHONY: all
 all: examples slides
 
+# ONESHELL works only with make 3.82 or heigher. So not on Trusty on Travis.
+# This is why we use '&&'.
 .ONESHELL:
 $(NODEDIR):
-	cd $(EXAMPLEDIR)
-	npm install
+	cd $(EXAMPLEDIR) && npm install 
 
 .PHONY: examples
 examples: $(EXAMPLES)
