@@ -21,6 +21,7 @@ install:
   - sudo apt-get install cabal-install
   - sudo cabal install pandoc-include-code
   - sudo apt-get install cabal-install
+  - sudo cabal update
   - sudo cabal install pandoc-include-code
 
 script:
