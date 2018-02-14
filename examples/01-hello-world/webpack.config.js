@@ -1,9 +1,13 @@
 const path = require('path');
-const HtmlWebPackPlugin = require("html-webpack-plugin");
+const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   // Where is the entry script
   entry: ['./js/index.js'],
+  // Where is the node_modules containing the dependencies (not needed normally)
+  resolve: {
+    modules: ['../node_modules'],
+  },
   // Where the resulting compiled JavaScript has to go
   output: {
     path: path.resolve(__dirname, 'dist'), // Create a 'dist' folder that contains resulting js and HTML
@@ -11,7 +15,7 @@ module.exports = {
   },
   // Webpack Development Server with automaigc in-browser page reload on change
   devServer: {
-    contentBase: "./dist" // Server's root
+    contentBase: './dist', // Server's root
   },
   module: {
     // Define how to process every type of file

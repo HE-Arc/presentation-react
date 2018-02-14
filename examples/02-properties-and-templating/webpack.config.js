@@ -4,6 +4,10 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 module.exports = {
   // Where is the entry script
   entry: ['./js/index.js'],
+  // Where is the node_modules containing the dependencies (not needed normally)
+  resolve: {
+    modules: ['../node_modules'],
+  },
   // Where the resulting compiled JavaScript has to go
   output: {
     path: path.resolve(__dirname, 'dist'), // Create a 'dist' folder that contains resulting js and HTML

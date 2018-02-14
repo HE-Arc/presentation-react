@@ -1,7 +1,22 @@
-BUILDDIR  = build
+BUILDDIR   = build
+EXAMPLEDIR = examples
+EXCLUDES   = $(EXAMPLEDIR)/package.json $(EXAMPLEDIR)/node_modules
+EXAMPLES   = $(filter-out $(EXCLUDES), $(wildcard $(EXAMPLEDIR)/*))
 
 .PHONY: all
-all: slides.html
+all: examples slides.html
+
+.PHONY: examples
+.ONESHELL:
+examples:
+	cd $(EXAMPLEDIR)
+	npm install
+	for dir in $(EXAMPLES:examples/%=%); do \
+		cd $$dir; \
+		npm run build; \
+		mkdir -p ../../$(BUILDDIR)/$$dir; \
+		cp -r dist/* ../../$(BUILDDIR)/$$dir; \
+	done
 
 slides.html: slides.md
 	if [ ! -d "reveal.js" ]; then \
