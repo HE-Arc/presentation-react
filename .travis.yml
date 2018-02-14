@@ -18,13 +18,8 @@ addons:
 install:
   - wget https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-${PANDOC_VERSION}-1-amd64.deb -O pandoc.deb
   - sudo dpkg -i pandoc.deb
-  - sudo apt-get install cabal-install
-  - sudo cabal update
-  - git clone https://github.com/owickstrom/pandoc-include-code.git
-  - cd pandoc-include-code
-  - cabal configure
-  - cabal install
-  - cd ..
+  - wget https://github.com/owickstrom/pandoc-include-code/releases/download/v1.2.0.2/pandoc-include-code-linux-ghc8-pandoc-1-19.tar.gz
+  - tar xvf pandoc-include-code-linux-ghc8-pandoc-1-19.tar.gz
 
 script:
   make all
