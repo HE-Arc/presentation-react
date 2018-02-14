@@ -1,33 +1,48 @@
-BUILDDIR   = build
-EXAMPLEDIR = examples
-EXCLUDES   = $(EXAMPLEDIR)/package.json $(EXAMPLEDIR)/node_modules
-EXAMPLES   = $(filter-out $(EXCLUDES), $(wildcard $(EXAMPLEDIR)/*))
+BUILDDIR      = build
+EXAMPLEDIR    = examples
+NODEDIR       = $(EXAMPLEDIR)/node_modules
+EXCLUDES      = $(EXAMPLEDIR)/package.json $(NODEDIR)
+EXAMPLES_SRC  = $(filter-out $(EXCLUDES), $(wildcard $(EXAMPLEDIR)/*))
+
+EXAMPLES_DIST = $(patsubst $(EXAMPLEDIR)/%, $(EXAMPLEDIR)/%/dist, $(EXAMPLES_SRC))
+EXAMPLES      = $(patsubst $(EXAMPLEDIR)/%, $(BUILDDIR)/%, $(EXAMPLES_SRC))
+REVEALJS      = reveal.js
+SLIDES        = $(BUILDDIR)/slides.html
 
 .PHONY: all
-all: examples slides.html
+all: examples slides
 
-.PHONY: examples
 .ONESHELL:
-examples:
+$(NODEDIR):
 	cd $(EXAMPLEDIR)
 	npm install
-	for dir in $(EXAMPLES:examples/%=%); do \
-		cd $$dir; \
-		npm run build; \
-		mkdir -p ../../$(BUILDDIR)/$$dir; \
-		cp -r dist/* ../../$(BUILDDIR)/$$dir; \
-	done
 
-slides.html: slides.md
-	if [ ! -d "reveal.js" ]; then \
-		git clone https://github.com/hakimel/reveal.js.git; \
-	fi
-	mkdir -p build
+.PHONY: examples
+examples: $(EXAMPLES)
+
+.PHONY: slides
+slides: $(SLIDES)
+
+$(EXAMPLES): $(EXAMPLES_DIST)
+	mkdir -p $@
+	cp -r $</* $@
+
+$(EXAMPLES_DIST): $(EXAMPLES_SRC)
+
+$(EXAMPLES_SRC): $(NODEDIR)
+	cd $@
+	npm run build
+
+$(REVEALJS):
+	git clone https://github.com/hakimel/reveal.js.git;
+
+$(SLIDES): $(REVEALJS) slides.md
+	mkdir -p $(BUILDDIR)
 	pandoc -s \
 		-f markdown+smart \
 		-t revealjs \
-		$< \
-		-o $(BUILDDIR)/$@ \
+		$(word 2, $^) \
+		-o $@ \
 		--filter pandoc-include-code \
 		--css https://fonts.googleapis.com/icon?family=Material+Icons \
 		-H theme.html \
@@ -40,4 +55,4 @@ slides.html: slides.md
 
 .PHONY: clean
 clean:
-	rm -r $(BUILDDIR)
+	rm -rf $(BUILDDIR) $(NODEDIR) $(EXAMPLES) $(EXAMPLES_DIST) $(REVEALJS)
