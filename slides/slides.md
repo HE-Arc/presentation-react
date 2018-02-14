@@ -1,6 +1,6 @@
 ---
 title: 'React'
-subtitle: 'Une bibliothèque pour réaliser des interfaces web (et plus encore)'
+subtitle: 'Une bibliothèque pour réaliser des interfaces web mais pas seulement'
 author:
   - Julien M'Poy
 ---
@@ -27,7 +27,8 @@ author:
 * Développé par Jordan Walke chez Facebook en 2011 (opensourcé en 2013).
 * Inspiré d'[XHP](https://facebook.github.io/xhp-lib/) et
     [E4X](https://en.wikipedia.org/wiki/ECMAScript_for_XML).
-* Utilisé par Facebook, Netflix, [Imgur](http://imgur.com/),
+* Utilisé par [Facebook](https://www.facebook.com/),
+  [Netflix](https://www.netflix.com), [Imgur](http://imgur.com/),
   [Feedly](https://feedly.com/) et bien d'autres.
 
 <aside class="notes">
@@ -55,7 +56,8 @@ author:
 
 ## Compétences requises
 
-* JavaScript ([npm](https://en.wikipedia.org/wiki/Npm_(software)))
+* JavaScript ([Node.js](https://nodejs.org/en/) et
+  [npm](https://en.wikipedia.org/wiki/Npm_(software)))
 * [ES2015](https://babeljs.io/learn-es2015/) (aussi appelé ES6)
 * [Webpack](https://webpack.js.org/) et [Babel](https://babeljs.io/)
 
@@ -71,21 +73,25 @@ author:
 
 ## Caractéristiques de React
 
-* [JSX](https://facebook.github.io/react/docs/jsx-in-depth.html)
+* Composants (_Components_) graphiques décrivant chaque partie de l'interface.
+* [JSX](https://facebook.github.io/react/docs/jsx-in-depth.html) (`XML` dans du JavaScript)
 * [Virtual DOM](http://reactkungfu.com/2015/10/the-difference-between-virtual-dom-and-dom/)
 
 <aside class="notes">
-    - JSX: JavaScript eXtension syntax
-    - HTML dans du JS sans utilisation des guillemets
-      ou des backticks.
-    - Principe de composant un peu à la Qt
-    - Permet de créer des composants réutilisables
-      (dans l'idéal)
-    - DOM: Document Object Model
-    - Data binding
-    - Architecture: on définit un tag XML
-      correspondant à notre composant et il
-      se monte dessus tout seul.
+  - Principe de composant un peu à la Qt
+  - Permet de créer des composants réutilisables
+    (dans l'idéal)
+  - JSX: JavaScript eXtension syntax
+  - HTML dans du JS sans utilisation des guillemets
+    ou des backticks.
+  - Architecture: on définit un tag XML
+    correspondant à notre composant et il
+    se monte dessus tout seul.
+  - Data binding
+  - DOM: Document Object Model
+  - On ne travaille plus avec DOM directement.
+    React s'occupe du travail en bas-niveau pour nous.
+  - Virtual DOM: copie côté React du DOM
 </aside>
 
 ---
@@ -96,7 +102,7 @@ author:
 - Un composant a son propre Virtual DOM.
 - Il contient des _React Elements_ (`<div>`, `<p>`, ...) ou
   d'autres composants React.
-- Tout composant retourne son DOM lorsqu'il est monté
+- Tout composant retourne son Virtual DOM lorsqu'il est monté
   (méthode `render()` dans le cas d'un classe)
 
 <aside class="notes">
@@ -171,11 +177,11 @@ Dans notre fichier `index.js`:
 
 Déroulement de l'exécution:
 
-1. Chargement des scripts de dépendances.
-2. Chargement du component.
-3. `ReactDOM` affiche le component.
+1. Chargement du script `index.js`.
+2. Chargement du composant.
+3. `ReactDOM` «monte» le composant.
 4. Création du DOM virtuel (Virtual DOM).
-5. Appel de `render()` et affichage du DOM virtuel dans le DOM.
+5. Appel de `render()` et affichage du DOM final dans le `<div>`.
 
 <!-- Un petit schéma explicatif? -->
 
@@ -201,7 +207,7 @@ Déroulement de l'exécution:
 ```{.js include=../examples/02-properties-and-templating/js/components/AnimalsList.js}
 ```
 
-Le templating côté JavaScript se fait avec _{}_.
+Le templating côté JavaScript se fait avec _{ }_.
 
 <aside class="notes">
   - "key" est important pour identifier chaque
@@ -239,7 +245,7 @@ Dans notre `index.js`:
 Un composant peut posséder un état (__stateful__) ou non (__stateless__).
 
 - __stateful__
-    - _Class component_
+    - _Class components_
 - __stateless__
     - React Elements
     - _Functionnal Components_
@@ -250,8 +256,10 @@ Un composant peut posséder un état (__stateful__) ou non (__stateless__).
 
 En général:
 
-- Un _component_ est un composant stateless. Souvent une fonction avec des propriétés.
-- Un _container_ est un composant stateful. Souvent une classe.
+- Un _component_ est un composant stateless. Souvent une fonction avec
+  des propriétés.
+- Un _container_ est un composant stateful. Souvent une classe avec
+  des propriétés en plus d'un état.
 
 ---
 
@@ -259,11 +267,12 @@ En général:
 
 - _component_
   - Responsable de la présentation de l'information.
-  - Rôle proche d'une vue dans un pattern MVC.
+  - Rôle proche d'une vue dans un pattern _MVC_.
 - _container_
   - Contient un ou plusieurs composants.
   - Possède une logique propre (_AJAX_, middleware, etc.).
-  - Comportement semblable à un contrôleur dans un pattern MVC.
+  - Comportement semblable à un contrôleur dans un pattern _MVC_ ou
+    un `ModelView` dans un pattern _MVVM_.
 
 <aside class="notes">
   - Transmission de l'information entre container et composant
@@ -276,6 +285,7 @@ En général:
 
 * Contient l'information propre au composant.
 * Rendu du component en fonction de son état.
+* L'état se modifie avec `this.setState`.
 * _Un changement d'état appelle automatiquement la méthode `render()`._
 
 <aside class="notes">
@@ -308,48 +318,50 @@ Dans notre `index.js`:
 ## Propriétés vs État
 
 - Les propriétés sont définies au moment de la création du composant.
-- L'état possède un état initial au momen où il est créé mais
+- L'état possède un état initial au moment où il est créé mais
   l'état peut changer après la création du composant. (≠ propriétés)
 
 ---
 
-## Lifecycle
+## Lifecycle hooks
 
-* `componentDidMount`: appelée lorsque le component est monté. On peut y faire
-  les appels AJAX, instancier un ou plusieurs timers pour des appels AJAX
-  réguliers, etc.
-* `componentWillUnmount`: appelée lorsque le component va être démonté. On y
+* `componentDidMount`: appelée la première fois que le component est «dessiné»
+  (render).
+* `componentWillUnmount`: appelée lorsque le component va être démonté/supprimé.
+* Il en existe d'[autres](https://reactjs.org/docs/react-component.html#the-component-lifecycle).
+
+
+<aside class="notes"> On y
   supprime le/les timer(s) instancié(s) dans `componentDidMount`.
 
-<aside class="notes">
-    Il serait mieux d'utiliser des WebSocket
+  On peut y faire
+  les appels AJAX, instancier un ou plusieurs timers pour des appels AJAX
+  réguliers, etc.
+   Il serait mieux d'utiliser des WebSocket
     plutôt que des appels AJAX réguliers mais
     c'est l'approche simple et naïve.
 </aside>
 
 ---
 
-## Lifecycle
+## Lifecycle hooks
 
-_`componentDidMount` et `componentWillUnmount` existent pour ne pas faire de
-tâches susceptibles de prendre du temps dans le constructeur._ L'affichage du
-component ne doit pas être retardé par une de ces tâches.
+Ces méthodes existent pour ne pas faire de tâches susceptibles de prendre du
+temps dans le constructeur (eg. allocation/destruction de ressources, AJAX, etc.).
 
-<!---
+_L'affichage du component ne doit pas être retardé par une de ces tâches._
+
+---
 
 ## Surprises et subtilités
 
 ![](http://ljdchost.com/UZ3egO9.gif){ width=900px }
---->
 
 ---
 
+## Surprises et subtilités: attributs HTML <i class="material-icons danger">error</i>
 
-## Surprises et subtilités: attributs HTML
-
-`my-component.jsx` donnant des erreurs <i class="material-icons danger">error</i>
-
-```xml
+```js
 class MyComponent extends React.Component {
   render() {
     return (
@@ -380,11 +392,9 @@ s'occupe de faire la transformation pour nous.
 
 ---
 
-## Surprises et subtilités: attributs HTML
+## Surprises et subtilités: attributs HTML <i class="material-icons success">done</i>
 
-`my-component.jsx` corrigé <i class="material-icons success">done</i>
-
-```xml
+```js
 class MyComponent extends React.Component {
   render() {
     return (
@@ -409,6 +419,10 @@ ReactDOM.render(
 
 ## Surprises et subtilités: gestion des évènements
 
+
+On ne peut pas utiliser `this.eventHandlerMethod` pour gérer les évènements
+dans `render` sans utiliser `bind` dans le constructeur.
+
 Il existe d'[autres solutions](https://facebook.github.io/react/docs/handling-events.html)
 que `bind`.
 
@@ -419,6 +433,17 @@ que `bind`.
     ne fonctionne pas dans React.
     -> This est problématique dans ce contexte.
 </aside>
+
+---
+
+## Surprises et subtilités: gestion des évènements
+
+On utilise `onClick` comme équivalent à `onclick`, `onBlur` pour `onblur`,
+`onMouseOver` pour `onmouseover`, etc.
+
+Un grande partie des évènements sont supportés et il suffit généralement
+d'utiliser le nom de l'évènement en version _camelCase_ pour l'utiliser
+([liste exhaustive des évènements supportés](https://reactjs.org/docs/events.html#supported-events)).
 
 <!--
 ## Exercices
@@ -436,7 +461,8 @@ que `bind`.
 
 - [React Developer Tools](https://github.com/facebook/react-devtools)
   disponibles pour les navigateurs ou en standalone (utile pour le debuggage).
-- [create-react-app](https://github.com/facebook/create-react-app)
+- [create-react-app](https://github.com/facebook/create-react-app):
+  solution clé en main pour démarrer un projet React.
 
 <aside class="notes">
   * create-react-app: libre à vous de le modifier ou de mettre en place
@@ -447,9 +473,9 @@ que `bind`.
 
 ## React sur mobile
 
-- Avec [React Native](https://facebook.github.io/react-native/)
-- Une grande parties des bibliothèques «React friendly»  et autres bibliothèque
-  JavaScript sont utilisables sur mobile.
+- Avec [React Native](https://facebook.github.io/react-native/).
+- Une grande partie des bibliothèques «React friendly»  et autres bibliothèque
+  JavaScript sont utilisables sur mobile avec React Native.
 
 <aside class="notes">
     - React Native: proposer l'architecture de React
@@ -461,9 +487,7 @@ que `bind`.
 ## Bibliothèques «React friendly»
 
 - [React router](https://reacttraining.com/react-router/)
-- Gestion des états
-  - [Redux](https://redux.js.org/docs/introduction/)
-  - [MobX](https://mobx.js.org/getting-started.html)
+  - `react-router-dom` pour du web et `react-router-native` pour React Native pour React Native.
 - Web design
   - [Material-UI](http://www.material-ui.com/#/)
   - [Semantic UI](https://react.semantic-ui.com/introduction)
@@ -472,58 +496,58 @@ que `bind`.
 <aside class="notes">
   * react-router: «learn once, use everywhere!»
 </aside>
+
+---
+
+## Bibliothèques «React friendly»
+
+- Gestion de l'état global de l'applicaton
+  - [Redux](https://redux.js.org/docs/introduction/)
+  - [MobX](https://mobx.js.org/getting-started.html)
+  - [Relay](https://facebook.github.io/relay/)
+
 ---
 
 ## Alternatives
 
-* [Vue.js](https://vuejs.org/)
-* [Riot.js](http://riotjs.com/)
-* [Ember.js](http://emberjs.com/)
-* [Polymer](https://www.polymer-project.org/1.0/)
+- [Vue.js](https://vuejs.org/)
+- [Riot.js](http://riotjs.com/)
+- [Ember.js](http://emberjs.com/)
+- [Polymer](https://www.polymer-project.org/1.0/)
 
 ---
 
 ## Avantages
 
-* Assez simple à prendre en main.
-* Composants d'interface réutilisables et imbricables.
-* Possibilité de stocker et modifier les informations à l'aide des états.
-* On ne s'embête plus avec DOM et on gagne en performance grâce à Virtual DOM.
+- Assez simple à prendre en main.
+- Composants d'interface réutilisables et imbricables.
+- Possibilité de stocker et modifier les informations à l'aide des états.
 
 ---
 
 ## Avantages
 
-* Transmission d'informations entre components grâce aux propriétés.
-* Complémentraire à [Angular](https://www.angularjs.org/),
-  [Backbone](http://backbonejs.org/), [jQuery](https://jquery.com), etc.
-* Applications de petite taille comparées à des applications faites avec
-  Angular 2.
+- On ne se bat plus avec DOM et [jQuery](https://jquery.com).
+- Applications de petite taille comparées à des applications faites avec
+  Angular 2 si on compare la taille du JavaScript généré.
 
 <aside class="notes">
     - Il n'y as pas de notion d'état avec jQuery.
     - React s'occupe de l'organisation/modification
       du DOM pour nous.
-    - React est-il plus rapide que jQuery?
-      Probablement car il ne reparcourt pas
-      tout le DOM à chaque modification.
-    - Expliquer pourquoi React n'est pas un framework.
-      Quelle différence avec AngularJS? En quoi est-il
-      complémentaire? JS dans HTML vs HTML dans JS.
 </aside>
 
 ---
 
 ## Inconvénients
 
-* React n'est pas un framework! Il faut l'utiliser avec d'autres bibliothèques/
-  frameworks comme [Redux](http://redux.js.org/), [Realy](https://facebook.github.io/relay/),
-  [Fetch](https://developer.mozilla.org/en/docs/Web/API/Fetch_API), [jQuery](https://jquery.com),
-  etc.
-* L'utiliser avec un framework MVC comme [Ruby On Rails](rubyonrails.org) ou
+- React n'est pas un framework! Il faut l'utiliser avec d'autres bibliothèques/
+  frameworks comme [Redux](http://redux.js.org/),
+  [Fetch](https://developer.mozilla.org/en/docs/Web/API/Fetch_API), etc.
+  __en fonction de nos besoins__.
+- L'utiliser avec un framework MVC comme [Ruby On Rails](rubyonrails.org) ou
   [Laravel](https://laravel.com/) demande un peu de configuration.
-* Si l'utilisateur désactive JavaScript, plus rien ne s'affiche.
-
+- Si l'utilisateur désactive JavaScript, plus rien ne s'affiche.
 
 ---
 
@@ -533,30 +557,35 @@ que `bind`.
 
 ---
 
-## Références
+## Liens utiles
 
-* [Lien vers le repo Github de la présenation](https://github.com/HE-Arc/presentation-react)
-* [React, Redux and JavaScript Architecture](https://jrsinclair.com/articles/2018/react-redux-javascript-architecture/)
-* [Article Wikipedia sur React](https://en.wikipedia.org/wiki/React_(JavaScript_library))
-* [Documentation officielle de React](https://facebook.github.io/react-native/docs/getting-started.html)
-* [Getting Started with React and JSX](https://www.sitepoint.com/getting-started-react-jsx/)
-* [How to set up React, Webpack 3, and Babel, in 2017](https://www.valentinog.com/blog/react-webpack-babel/)
+- [Dépôt Github de la présenation avec les exemples](https://github.com/HE-Arc/presentation-react)
+- [Évènements HTML gérés par React](https://reactjs.org/docs/events.html#supported-events)
+- [Lifecyle Hooks existant dans React](https://reactjs.org/docs/react-component.html#the-component-lifecycle)
 
 ---
 
 ## Références
 
-* [Cours __Powering Up With React__ de Code School](https://www.codeschool.com/courses/powering-up-with-react)
-* [The difference between the Virtual DOM and DOM](http://reactkungfu.com/2015/10/the-difference-between-virtual-dom-and-dom/)
-* [React Elements vs React Components](https://tylermcginnis.com/react-elements-vs-react-components/)
-* [Angular 2 versus React: There Will Be Blood](https://medium.freecodecamp.com/angular-2-versus-react-there-will-be-blood-66595faafd51#.iwb2coio6)
-* [JSX](https://jsx.github.io/)
-* [Babel](https://babeljs.io/)
-* [Working with Sass, Bootstrap and Gulp](http://david-barreto.com/working-with-sass-bootstrap-and-gulp/git)
+- [React, Redux and JavaScript Architecture](https://jrsinclair.com/articles/2018/react-redux-javascript-architecture/)
+- [Documentation officielle de React](https://facebook.github.io/react-native/docs/getting-started.html)
+- [The difference between the Virtual DOM and DOM](http://reactkungfu.com/2015/10/the-difference-between-virtual-dom-and-dom/)
+- [React Elements vs React Components](https://tylermcginnis.com/react-elements-vs-react-components/)
+- [Article Wikipedia sur React](https://en.wikipedia.org/wiki/React_(JavaScript_library))
+- [How to set up React, Webpack 3, and Babel, in 2017](https://www.valentinog.com/blog/react-webpack-babel/)
 
 ---
 
-# Annexes
+## Références
+
+- [Cours __Powering Up With React__ de Code School](https://www.codeschool.com/courses/powering-up-with-react)
+- [Getting Started with React and JSX](https://www.sitepoint.com/getting-started-react-jsx/)
+- [Angular 2 versus React: There Will Be Blood](https://medium.freecodecamp.com/angular-2-versus-react-there-will-be-blood-66595faafd51#.iwb2coio6)
+<!-- * [Working with Sass, Bootstrap and Gulp](http://david-barreto.com/working-with-sass-bootstrap-and-gulp/git) -->
+
+---
+
+## Annexes
 
 ---
 
@@ -565,29 +594,10 @@ que `bind`.
 Procédure assez simple:
 
 ```console
-$ npm install react react-dom babel-standalone
+$ npm install -g create-react-app
+$ create-react-app my-app
+$ cd my-app
+$ npm run start
 ```
 
-On inclue `react.js`, `react-dom.js` et `babel.js` ou leurs versions
-minifiées dans nos fichiers HTML et en voiture Simone!
-
-_PS: Utiliser `babel-standalone` en développement et `babel` pour la
-production. (cf. notes)_
-
-<aside class="notes">
-    - react: la majeur partie de React.
-    - react-dom: partie de React permettant
-      d'utiliser Virtual DOM.
-    - babel: bibliothèque permettant d'exécuter
-      du code ES2015 côté navigateur ou autre
-      environnement "non-nodeJS".
-
-    babel-standalone est fait pour le développement
-    car il permet au navigateur de compiler les
-    fichiers jsx à la volée. Il est conseillé
-    d'utiliser la version standard de babel
-    pour compiler les fichiers jsx en js une
-    fois côté serveur. Évitant au client de
-    le faire à chaque fois et d'économiser
-    des ressources (côté client).
-</aside>
+En voiture Simone!

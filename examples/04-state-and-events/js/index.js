@@ -24,15 +24,12 @@ class Counter extends Component {
     this.setState({counter: 0});
   }
   render() {
-    var isEvenMessage = <p>The counter value is even.</p>;
-    if (this.state.counter % 2 == 0) {
-      isEvenMessage = <p>The counter value is peer.</p>;
-    }
+    var isPeer = this.state.counter % 2 == 0 ? 'peer' : 'even';
     return (
       <div>
         <h1>State and events</h1>
         <p>counter: {this.state.counter}</p>
-        {isEvenMessage}
+        <p>The counter value is {isPeer}.</p>
         <button type="button" onClick={this.incrementCounter}>
           Increment
         </button>

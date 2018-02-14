@@ -1,7 +1,7 @@
 import React from 'react';
 
 /*
- * Toggle comment between these two import to use
+ * Toggle comment between these two imports to use either
  * the object oriented version or the functionnal
  * version.
  */
