@@ -8,13 +8,15 @@ author:
 ## Sommaire
 
 - Qu'est-ce que React?
+- Composant React
 - Hello World
-- Notion de *state* (état)
-- Cycle de vie d'un composant (*lifecycle*)
+- Propriétés d'un composant
+- État d'un composant
+- Lifecycle Hooks
 - Surprises et subtilités
-- Bibliothèques «React friendly»
+- Outils et bibliothèques complémentaires
 - Alternatives
-- Avantages et inconvénients
+- Avantages et inconvénients de React
 - Questions
 
 ---
@@ -259,7 +261,7 @@ En général:
 - Un _component_ est un composant stateless. Souvent une fonction avec
   des propriétés.
 - Un _container_ est un composant stateful. Souvent une classe avec
-  des propriétés en plus d'un état.
+  un état et éventuellement des propriétés.
 
 ---
 
@@ -525,7 +527,7 @@ d'utiliser le nom de l'évènement en version _camelCase_ pour l'utiliser
 ## Avantages
 
 - Assez simple à prendre en main.
-- Composants d'interface réutilisables et imbricables.
+- Composants d'interface réutilisables.
 - Possibilité de stocker et modifier les informations à l'aide des états.
 
 ---
@@ -546,13 +548,20 @@ d'utiliser le nom de l'évènement en version _camelCase_ pour l'utiliser
 
 ## Inconvénients
 
-- React n'est pas un framework! Il faut l'utiliser avec d'autres bibliothèques/
-  frameworks comme [Redux](http://redux.js.org/),
-  [Fetch](https://developer.mozilla.org/en/docs/Web/API/Fetch_API), etc.
-  __en fonction de nos besoins__.
-- L'utiliser avec un framework MVC comme [Ruby On Rails](rubyonrails.org) ou
-  [Laravel](https://laravel.com/) demande un peu de configuration.
+- React n'est pas un framework. Utilisez d'autres bibliothèques/
+  frameworks supplémentaires __en fonction de vos besoins__.
+- Utilisez un autre framework web pour la partie backend.
 - Si l'utilisateur désactive JavaScript, plus rien ne s'affiche.
+
+<aside class="notes">
+  * Redux (état global de l'application)
+    Fetch ou axios(AJAX)
+  * Ruby On Rails ou Laravel demandent
+    un peu de configuration.
+  * Séparer frontend et backend c'est bien
+    mais cela est plus chronophage que de
+    faire une application monolithique.
+</aside>
 
 ---
 
