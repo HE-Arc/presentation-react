@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/HE-Arc/presentation-react.svg?branch=master)](https://travis-ci.org/HE-Arc/presentation-react)
 
-Slides presenting [React](https://facebook.github.io/react/) (fr).
+Slides presenting [React](https://facebook.github.io/react/) with some code examples (fr).
 
 ## Dependencies
 
