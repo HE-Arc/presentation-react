@@ -492,9 +492,14 @@ d'utiliser le nom de l'évènement en version _camelCase_ pour l'utiliser
   - [Material-UI](http://www.material-ui.com/#/)
   - [Semantic UI](https://react.semantic-ui.com/introduction)
   - [reactstrap](https://reactstrap.github.io/)
+  - Un framework CSS classique, [Sass](https://sass-lang.com/) ou CSS pur
 
 <aside class="notes">
   * react-router: «learn once, use everywhere!»
+  * Libre à vous d'utiliser Bootstrap, Foundation,
+    Materialize ou autre.
+    Il faut juste configurer Webpack pour qu'il
+    compile le SCSS et le mette au bon endroit.
 </aside>
 
 ---

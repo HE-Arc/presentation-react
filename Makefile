@@ -17,10 +17,13 @@ $(NODEDIR):
 	cd $(EXAMPLEDIR) && npm install
 
 .PHONY: examples
-examples: $(EXAMPLES)
+examples: $(BUILDDIR) $(EXAMPLES)
 
 .PHONY: slides
-slides: $(SLIDES)
+slides: $(BUILDDIR) $(SLIDES)
+
+$(BUILDDIR):
+	mkdir -p $(BUILDDIR)
 
 # Make <=3.81 workaround (cannot get newer version on Travis' Trusty)
 $(EXAMPLES): $(EXAMPLES_DIST)
@@ -37,12 +40,11 @@ $(EXAMPLES_SRC): $(NODEDIR)
 $(REVEALJS):
 	git clone https://github.com/hakimel/reveal.js.git;
 
-$(SLIDES): $(REVEALJS) slides.md
-	mkdir -p $(BUILDDIR)
+$(SLIDES): $(BUILDDIR) $(REVEALJS) slides.md
 	pandoc -s \
 		-f markdown+smart \
 		-t revealjs \
-		$(word 2, $^) \
+		$(word 3, $^) \
 		-o $@ \
 		--filter pandoc-include-code \
 		--css https://fonts.googleapis.com/icon?family=Material+Icons \
@@ -53,6 +55,7 @@ $(SLIDES): $(REVEALJS) slides.md
 		--variable transition="convex" \
 		--variable slideNumber="true" \
 		--variable showSlideNumber="true"
+	cp -rn $(REVEALJS) $(BUILDDIR)/
 
 .PHONY: clean
 clean:
