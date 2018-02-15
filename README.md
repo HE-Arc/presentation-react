@@ -1,17 +1,43 @@
 # presentation-react
 
-Slides de présentation, exemples et exercices à propos de la bilbiothèque JavaScript [React](https://facebook.github.io/react/) de Facebook.
+[![Build Status](https://travis-ci.org/HE-Arc/presentation-react.svg?branch=master)](https://travis-ci.org/HE-Arc/presentation-react)
 
-## Tester les exemples
+Slides presenting [React](https://facebook.github.io/react/) (fr).
 
-Il est nécessaire d'installer quelques dépendances pour faire fonctionner les exemples. Il faut installer les packages JavaScript `react`, `react-dom` et `babel-standalone`. Il suffit de lancer la commande `npm install` à la racine du projet pour les installer.
+## Dependencies
 
-## Installation des outils pour l'édition des slides
+- Make or [MinGW](http://www.mingw.org/) for Windows
+- [pandoc](https://github.com/jgm/pandoc)
+- [pandoc-include-code](https://github.com/owickstrom/pandoc-include-code)
+- [Node.js and npm](https://nodejs.org/en/)
 
-1. Si vous êtes sous Windows (mouahaha!), installez [MinGW](http://www.mingw.org/) et ajoutez le dans votre PATH. MinGW permet d'utiliser la commande `mingw32-make` qui permet de travailler avec des Makefile à la Linux.
-2. Installez [pandoc](http://pandoc.org/) et ajoutez le dans votre PATH. Pandoc permet de convertir un ou plusieurs fichiers d'un certain format (comme Markdown) en un autre format de sortie (HTML, PDF, etc.). On l'utilise ici pour générer les slides au format HTML.
-3. Placez vous dans le dossier `slides` du projet avec un terminal et lancez la commande `make install` pour "installer" [reveal.js](http://lab.hakim.se/reveal-js/). `make` est à remplacer par `mingw32-make` pour les windowsiens.
+__`pandoc-include-code` is only available on Linux and OSX so configure and use
+[Windows Subsystem for Linux(WSL)](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
+if you are on Windows and want to edit/generate the slides.__
 
-Vous êtes maintenant fin prêt pour travailler! Éditez le fichier `slides.md` et lancez ensuite `make html` pour générer le fichier `slides.html` avec modifications.
+For Windows users, do not forget to add MinGW and pandoc to your `PATH`.
+Also use `mingw32-make` instead of `make` when you work with the `Makfile`.
+Or simply use WSL and install dependencies on your Linux machine.
 
-Si le fonctionnement du `Makefile` vous intéresse, n'hésitez pas à y jeter un oeil. Il utilise déjà quelques [fonctionnalités avancées](http://pandoc.org/MANUAL.html#producing-slide-shows-with-pandoc) de `pandoc`.
+## Test the examples
+
+To test the examples, open a terminal in the `examples` folder and
+run `npm install` to install the dependencies. You have to do this only once.
+
+Then move into an example's folder and run `npm run start` to start the example.
+This latter will be accessible at <http://localhost:8080>.
+
+You can play with the examples and modifiy them.
+Modifications will automatically trigger browser page reloading to allow you to
+see changes directly.
+
+If you want to build all the examples in one command, open a terminal
+in the project's root and run `make examples`.
+You can then open the examples' `index.html` to test them.
+They are located in `examples/<example-name>/dist/` or
+`build/<example-name>/`.
+
+## Slides
+
+You can generate the slides with `make slides` or generate everything
+(slides and examples) by running `make`.
