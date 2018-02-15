@@ -12,11 +12,9 @@ SLIDES        = $(BUILDDIR)/slides.html
 .PHONY: all
 all: examples slides
 
-# ONESHELL works only with make 3.82 or heigher. So not on Trusty on Travis.
-# This is why we use '&&'.
-.ONESHELL:
+# Make <=3.81 workaround (cannot get newer version on Travis' Trusty)
 $(NODEDIR):
-	cd $(EXAMPLEDIR) && npm install 
+	cd $(EXAMPLEDIR) && npm install
 
 .PHONY: examples
 examples: $(EXAMPLES)
@@ -24,14 +22,17 @@ examples: $(EXAMPLES)
 .PHONY: slides
 slides: $(SLIDES)
 
+# Make <=3.81 workaround (cannot get newer version on Travis' Trusty)
 $(EXAMPLES): $(EXAMPLES_DIST)
-	mkdir -p $@
-	cp -r $</* $@
+	mkdir -p $(patsubst $(EXAMPLEDIR)/%/dist,$(BUILDDIR)/%, $@) && \
+	cp -r $(patsubst $(BUILDDIR)/%,$(EXAMPLEDIR)/%/dist/*, $@) $@
 
 $(EXAMPLES_DIST): $(EXAMPLES_SRC)
 
+# Make <=3.81 workaround (cannot get newer version on Travis' Trusty)
 $(EXAMPLES_SRC): $(NODEDIR)
-	cd $@ && npm run build # ONESHELL issue?
+	cd $@ && npm run build
+
 
 $(REVEALJS):
 	git clone https://github.com/hakimel/reveal.js.git;

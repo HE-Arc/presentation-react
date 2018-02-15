@@ -118,7 +118,7 @@ author:
 
 ---
 
-## Hello World
+## [Hello World](01-hello-world/index.html)
 
 Dans notre fichier `index.html`:
 
@@ -195,7 +195,7 @@ Déroulement de l'exécution:
 
 ---
 
-## Templating
+## [Templating](02-properties-and-templating/index.html)
 
 ```{.js include=examples/02-properties-and-templating/js/App.js}
 ```
@@ -231,7 +231,7 @@ Le templating côté JavaScript se fait avec _{ }_.
 
 ---
 
-## Propriété `children`
+## [Propriété `children`](03-children/index.html)
 
 Dans notre `index.js`:
 
@@ -305,7 +305,7 @@ En général:
 
 ---
 
-## État
+## [État](04-state-and-events/index.html)
 
 Dans notre `index.js`:
 
