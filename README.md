@@ -12,7 +12,7 @@ Slides presenting [React](https://facebook.github.io/react/) with some code exam
 - [Node.js and npm](https://nodejs.org/en/)
 
 __`pandoc-include-code` is only available on Linux and OSX so configure and use
-[Windows Subsystem for Linux(WSL)](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
+[Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
 if you are on Windows and want to edit/generate the slides.__
 
 For Windows users, do not forget to add MinGW and pandoc to your `PATH`.

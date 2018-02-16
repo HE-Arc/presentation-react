@@ -447,15 +447,13 @@ Un grande partie des évènements sont supportés et il suffit généralement
 d'utiliser le nom de l'évènement en version _camelCase_ pour l'utiliser
 ([liste exhaustive des évènements supportés](https://reactjs.org/docs/events.html#supported-events)).
 
-<!--
 ## Exercices
 
 * Formulaire simple avec un titre changeant dynamiquement.
+* Todo list
 * Kanban sans drag'n drop.
-* T'es un champion? Fais le kanban avec le drag'n drop! Voici un [tutoriel](https://www.html5rocks.com/en/tutorials/dnd/basics/)
-  expliquant comment utiliser l'[API Drag and drop de HTML5](https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API).
-
--->
+<!-- * Pour les champions, un kanban avec le drag'n drop! Voici un [tutoriel](https://www.html5rocks.com/en/tutorials/dnd/basics/)
+  expliquant comment utiliser l'[API Drag and drop de HTML5](https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API). -->
 
 ---
 
